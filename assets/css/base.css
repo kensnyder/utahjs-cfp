@@ -1,0 +1,72 @@
+body {
+	font-size: 16px;
+}
+.main {
+	padding: 6.5%;
+	width: 100%;
+}
+label {
+	margin: 1em 0 0 0;
+}
+fieldset {
+	padding-bottom: 3em;
+}
+input[type=submit] {
+	width: auto;
+}
+input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus, textarea:focus {
+    color: #003DD3;
+}
+.cbox {
+	font-weight: normal;
+}
+/* blue style buttons */
+.bt,
+.pagination a,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  font: inherit;
+  display: inline-block;
+  padding: 9px 12px;
+  text-decoration: none;
+  cursor: pointer;
+  
+  color: #f9f9f9;
+  background-color: #3085CB;
+  background: linear-gradient(to bottom, #3085CB, #1267AD);
+  background: -webkit-linear-gradient(top, #3085CB, #1267AD);
+  background: -moz-linear-gradient(center 1px, #3085CB, #1267AD);
+  background: -ms-linear-gradient(top, #3085CB, #1267AD);
+  background: -o-linear-gradient(top, #3085CB, #1267AD);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#3085CB', endColorstr='#1267AD)');
+  border: 1px solid #1267AD;
+  
+  border-radius: 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0, 0, 0, 0.09);
+}
+.bt:hover,
+.pagination a:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover {
+  color: #fff;
+  background-color: #00559B;
+  background: linear-gradient(to bottom, #00559B, #013D75);
+  background: -webkit-linear-gradient(top, #00559B, #013D75);
+  background: -moz-linear-gradient(center 1px, #00559B, #013D75);
+  background: -ms-linear-gradient(top, #00559B, #013D75);
+  background: -o-linear-gradient(top, #00559B, #013D75);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#00559B', endColorstr='#013D75)');
+  border: 1px solid #00559B;
+}
+legend {
+    background: #eee;
+    border: 1px solid #1267AD;
+    color: #1267AD;
+}
+fieldset {
+    border-top: 1px solid #1267AD;
+}

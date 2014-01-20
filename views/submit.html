@@ -1,0 +1,31 @@
+{{> head}}
+{{> nav}}
+
+<div class="main">
+	<h1>Submit Paper</h1>
+
+	<form action="" method="post" class="submit-form">
+		<fieldset>
+			<legend>About You</legend>
+			<label class="required">Name</label><input type="text" name="paper[name]">
+			<label class="required">Email</label><input type="text" name="paper[email]">
+			<label>Github</label><input type="text" name="paper[github]">
+			<label>Twitter</label><input type="text" name="paper[twitter]">
+			<label class="required">Introduce yourself</label><textarea rows="3" name="paper[bio]"></textarea>		
+		</fieldset>
+		<fieldset>
+			<legend>Your Presentation</legend>
+			<label class="required">Title</label><input type="text" name="paper[title]">
+			<label class="required">Description</label><textarea rows="8" name="paper[description]"></textarea>
+			<label class="required">Whom are you targeting?</label>
+			<label class="cbox"><input type="checkbox" name="paper[audience]" value="Beginner Developers"> Beginner Developers</label>
+			<label class="cbox"><input type="checkbox" name="paper[audience]" value="Experienced Developers"> Experienced Developers</label>
+			<label class="cbox"><input type="checkbox" name="paper[audience]" value="Quality Assurance Engineers"> Quality Assurance Engineers</label>
+			<label class="cbox"><input type="checkbox" name="paper[audience]" value="Other IT Professionals"> Other IT Professionals</label>
+			<label class="cbox"><input type="checkbox" name="paper[audience]" value="Other IT Professionals"> Business Professionals</label>
+		</fieldset>
+		<input type="submit" value="Submit" />
+	</form>
+</div>
+
+{{> footer}}

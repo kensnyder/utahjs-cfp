@@ -1,0 +1,34 @@
+{{> head}}
+{{> nav}}
+
+<script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="/assets/papers.js"></script>
+
+<div class="main">
+	<h1>
+	{{if admin}}
+		Papers admin
+	{{else}}
+		Vote on the papers you like
+	{{/if}}
+	</h1>
+
+	<table>
+
+		<tr>
+			<th>Name
+			<th>Address
+			<th>Model Number
+			<th>More
+		{{#each papers}}
+			<tr>
+				<td class="name">{{name}}
+				<td class="address">{{address}}
+				<td>{{model}}</td>
+				<td><a class="more" href="#" data-id="{{id}}">Click for more info</a>
+		{{/each}}
+
+	</table>
+</div>
+	
+{{> footer}}
