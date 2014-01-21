@@ -153,9 +153,14 @@ app.post('/admin-comment.json', function(request, response) {
 	});
 });
 
-// start server
-app.listen(3001);
-console.log('listening on 3001');
+// start server on requested port
+var port = process.env.PORT || 5000;
+app.listen(port, function() {
+	console.log("Listening on " + port);
+});
+
+
+// --- helper functions --- //
 
 // get ip addresses
 function getIpAddress(req) {
@@ -163,11 +168,13 @@ function getIpAddress(req) {
 }
 // read our data on server start
 function readPapersJson() {
+	return [];
 	var contents = fs.readFileSync(__dirname + '/data/papers.json').toString();
 	return JSON.parse(contents || "[]");
 }
 // write our data when anything changes
 function writePapersJson() {
+	return;
 	var contents = JSON.stringify(papers || []);
 	return fs.writeFileSync(__dirname + '/data/papers.json', contents);
 }
