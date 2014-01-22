@@ -178,8 +178,9 @@ if (process.env.PORT) {
 	  'mongodb://localhost/mydb';
 
 	mongo.Db.connect(mongoUri, function (err, db) {
-		console.log('connected to mongo at `' + mongoUri + '` with ' + (er ? 'error `' + er + '`' : 'no error'));
+		console.log('connected to mongo at `' + mongoUri + '` with ' + (err ? 'error `' + err + '`' : 'no error'));
 	  db.collection('papers', function(er, collection) {
+		console.log('opened collection `papers` with ' + (er ? 'error `' + er + '`' : 'no error'));
 	  	papersCollection = collection;	    
 	  });
 	});
@@ -195,10 +196,11 @@ function getIpAddress(req) {
 }
 // read our data on server start
 function loadPapersData() {
-	var papers;
+	var papers = [];
 	if (papersCollection) {
 		papersCollection.find().toArray(function(err, items) {
-			papers = items;
+			console.log('loaded ' + (items ? items.length : 0) + ' papers from mongo with ' + (err ? 'error `' + err + '`' : 'no error'));
+			papers = items || [];
 		});
 	}
 	else {
