@@ -1,16 +1,31 @@
 {{> head}}
 {{> nav}}
 
-<div class="main">
-	<h1>Submit Paper</h1>
+<div class=main>
+
+	{{#if error}}
+		<h2>Submit Presentation Proposal</h2>
+
+		<div class=error>{{error}}</div>
+	{{else}}
+		<h1>Call For Speakers</h1>
+
+		<p>Submissions open January 21st, 2014 and close February 28th, 2014. We will review submissions and get back to you in mid March.
+
+		<p>Speakers will receive entry in to the conference and an invitation to the dinner the night before.
+	    
+		<h2>Submit Presentation Proposal</h2>
+
+		<p>Presentations should be about 30 to 40 minutes. The conference will be a one-day event on Friday, June 6th, 2014. Feel free to submit multiple papers.
+	{{/if}}
 
 	<form action="" method="post" class="submit-form">
 		<fieldset>
 			<legend>About You</legend>
 			<label class="required">Name</label><input type="text" name="paper[name]">
 			<label class="required">Email</label><input type="text" name="paper[email]">
-			<label>Github</label><input type="text" name="paper[github]">
-			<label>Twitter</label><input type="text" name="paper[twitter]">
+			<label>Github Username</label><input type="text" name="paper[github]">
+			<label>Twitter Handle</label><input type="text" name="paper[twitter]">
 			<label class="required">Introduce yourself</label><textarea rows="3" name="paper[bio]"></textarea>		
 		</fieldset>
 		<fieldset>

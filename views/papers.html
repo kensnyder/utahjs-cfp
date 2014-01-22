@@ -6,26 +6,32 @@
 
 <div class="main">
 	<h1>
-	{{if admin}}
+	{{#if admin}}
 		Papers admin
 	{{else}}
-		Vote on the papers you like
+		Tell us which papers you like
 	{{/if}}
 	</h1>
 
-	<table>
+	<table class="table striped">
 
 		<tr>
+			<th>Vote!
+			<th>Date
 			<th>Name
-			<th>Address
-			<th>Model Number
-			<th>More
+			<th>Email
+			<th>Title
+			<th>Description
 		{{#each papers}}
-			<tr>
-				<td class="name">{{name}}
-				<td class="address">{{address}}
-				<td>{{model}}</td>
-				<td><a class="more" href="#" data-id="{{id}}">Click for more info</a>
+			<tr data-id="{{id}}">
+				<td><input type=checkbox>
+				<td>{{date timestamp}}
+				<td>{{name}}
+				<td>{{email}}
+				<td>{{title}}
+				<td>
+					{{description}}
+					<a class=more href="#">more &rsaquo;</a>
 		{{/each}}
 
 	</table>

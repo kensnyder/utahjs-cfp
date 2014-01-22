@@ -6,7 +6,7 @@ var fs = require('fs');
 app.use(express.bodyParser());
 
 // initialize data
-var papers = readPapersJson() || [];
+var papers = loadPapersData() || [];
 var nextId = getMaxPaperId() + 1;
 
 // use handlebars as templating engine
@@ -20,6 +20,17 @@ hbs.registerPartials(__dirname + '/views/partials');
 // common stuff
 var baseTitle = 'UtahJS Conference - Friday June 6, 2014';
 
+// handlebars date helper
+hbs.registerHelper('date', function(timestamp) {
+	timestamp = parseInt(timestamp);
+	if (!timestamp) {
+		return '';
+	}
+	var d = new Date();
+	d.setTime(timestamp);
+	return (d.getMonth()+1) + '/' + d.getDate() + '/' + d.getFullYear();
+});
+
 // default page
 app.get('/', function(request, response) {
 	response.render('index', {
@@ -30,7 +41,7 @@ app.get('/', function(request, response) {
 // submit form
 app.get('/submit', function(request, response) {
 	response.render('submit', {
-		title: 'Submit a Paper :: ' + baseTitle,
+		title: 'Submit Presentation Proposal :: ' + baseTitle,
 		paper: {}
 	});
 });
@@ -42,14 +53,14 @@ app.post('/submit', function(request, response) {
 	if (!isPaperValid(paper)) {
 		// required field missing		
 		response.render('submit', {
-			title: 'Submit a Paper :: ' + baseTitle,
+			title: 'Submit Presentation Proposal :: ' + baseTitle,
 			error: 'Please complete all required fields.',
 			paper: paper
 		});
 		return;
 	}
 	papers.push(paper);
-	writePapersJson();
+	savePaper(paper);
 	response.render('success', {
 		title: 'Thank you for your submission :: ' + baseTitle
 	});
@@ -78,7 +89,7 @@ app.post('/tally.json', function(request, response) {
 				success: true,
 				votes: papers[i].votes.count
 			});
-			writePapersJson();
+			savePaper(paper);
 			return;
 		}
 	}
@@ -105,7 +116,7 @@ app.post('/admin-faviorite.json', function(request, response) {
 			response.json({
 				success: true
 			});
-			writePapersJson();
+			savePaper(paper);
 			return;
 		}
 	}
@@ -124,7 +135,7 @@ app.post('/admin-delete.json', function(request, response) {
 			response.json({
 				success: true
 			});
-			writePapersJson();
+			savePaper(paper);
 			return;
 		}
 	}
@@ -143,7 +154,7 @@ app.post('/admin-comment.json', function(request, response) {
 			response.json({
 				success: true
 			});
-			writePapersJson();
+			savePaper(paper);
 			return;
 		}
 	}
@@ -154,27 +165,55 @@ app.post('/admin-comment.json', function(request, response) {
 });
 
 // start server on requested port
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 3001;
 app.listen(port, function() {
 	console.log("Listening on " + port);
 });
+var mongo, mongoUri, papersCollection;
+if (process.env.PORT) {
+	mongo = require('mongodb');
+
+	mongoUri = process.env.MONGOLAB_URI ||
+	  process.env.MONGOHQ_URL ||
+	  'mongodb://localhost/mydb';
+
+	mongo.Db.connect(mongoUri, function (err, db) {
+	  db.collection('papers', function(er, collection) {
+	  	papersCollection = collection;	    
+	  });
+	});
+}
+
+
 
 
 // --- helper functions --- //
-
 // get ip addresses
 function getIpAddress(req) {
 	return req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 }
 // read our data on server start
-function readPapersJson() {
-	return [];
-	var contents = fs.readFileSync(__dirname + '/data/papers.json').toString();
-	return JSON.parse(contents || "[]");
+function loadPapersData() {
+	var papers;
+	if (papersCollection) {
+		papersCollection.find().toArray(function(err, items) {
+			papers = items;
+		});
+	}
+	else {
+		var contents = fs.readFileSync(__dirname + '/data/papers.json');
+		papers = JSON.parse(contents || "[]");
+	}
+	return papers;
 }
 // write our data when anything changes
-function writePapersJson() {
-	return;
+function savePaper(paper) {	
+	if (papersCollection) {
+		papersCollection.insert(paper, {safe: true}, function(er, rs) {
+			console.log('inserted paper with ' + (er ? 'error `' + er + '`' : 'no error'));
+		});
+		return true;
+	}
 	var contents = JSON.stringify(papers || []);
 	return fs.writeFileSync(__dirname + '/data/papers.json', contents);
 }

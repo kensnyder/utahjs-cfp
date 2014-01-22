@@ -1,26 +1,84 @@
+/* general */
 body {
 	font-size: 16px;
 }
+h1 {
+    font-size: 2.3em;
+}
+/* layout */
 .main {
-	padding: 6.5%;
-	width: 100%;
+  padding: 30px;
+  width: 100%;
+  min-height: 500px;
 }
-label {
-	margin: 1em 0 0 0;
+/* header */
+header {
+  background-color: #eee;
+  color: #0071CD;
+  padding: 30px;
 }
-fieldset {
-	padding-bottom: 3em;
+.what {
+  font-size: 1.8em;
+  font-weight: bold;
 }
-input[type=submit] {
-	width: auto;
+.when,
+.where {
+  font-size: 0.8em;
+  color: #666;
+  font-style: italic;
 }
-input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus, textarea:focus {
-    color: #003DD3;
+.logo {
+  float: right;
 }
-.cbox {
-	font-weight: normal;
+/* nav */
+nav {
+  background-color: #0071CD;
+  padding: 30px;
 }
-/* blue style buttons */
+nav ul {
+  margin: 0;
+}
+nav li {
+  display: inline-block;
+  margin: 0 30px 0 0;
+}
+nav li a,
+nav li a:visited {
+  color: rgba(255,255,255,0.88);
+  font-weight: bold;
+  text-decoration: none;
+}
+nav li a:hover,
+nav li a:visited:hover {
+  color: rgba(255,255,255,1);
+  font-weight: bold;
+}
+/* footer */
+footer {
+  background-color: #0071CD;
+  color: rgba(255,255,255,0.66);
+  padding: 10px;
+  font-size: 12px;
+}
+footer a, 
+footer a:visited {
+  color: rgba(255,255,255,0.66);
+}
+footer a:hover,
+footer a:visited:hover {
+  color: rgba(255,255,255,0.88);
+  text-decoration: underline;
+}
+.powered-by {
+  float: left;
+}
+.credit {
+  float: right;
+}
+.clear {
+  clear: both;
+}
+/* forms */
 .bt,
 .pagination a,
 button,
@@ -63,10 +121,27 @@ input[type="button"]:hover {
   border: 1px solid #00559B;
 }
 legend {
-    background: #eee;
-    border: 1px solid #1267AD;
-    color: #1267AD;
+  background: #eee;
+  border: 1px solid #0071CD;
+  color: #0071CD;
 }
 fieldset {
-    border-top: 1px solid #1267AD;
+  border-top: 1px solid #0071CD;
+  padding-bottom: 3em;
+}
+label {
+  margin: 1em 0 0 0;
+}
+input[type=submit] {
+  width: auto;
+}
+input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus, textarea:focus {
+    color: #003DD3;
+}
+.cbox {
+  font-weight: normal;
+}
+.error {
+  font-weight: bold;
+  color: red;
 }
