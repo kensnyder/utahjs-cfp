@@ -182,7 +182,7 @@ function getIpAddress(req) {
 function loadPapersData() {
 	var papers = [];
 
-	if (process.env.PORT) {
+	if (0 && process.env.PORT) {
 		mongo = require('mongodb');
 
 		mongoUri = process.env.MONGOLAB_URI ||
@@ -204,8 +204,12 @@ function loadPapersData() {
 		});
 	}
 	else {
-		var contents = fs.readFileSync(__dirname + '/data/papers.json');
-		papers = JSON.parse(contents || "[]");
+		try {
+			var contents = fs.readFileSync(__dirname + '/data/papers.json');
+			papers = JSON.parse(contents || "[]");
+		} catch (e) {
+			console.log('[ERROR] could not write to papers.json');
+		}
 	}
 	return papers;
 }
