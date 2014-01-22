@@ -214,10 +214,14 @@ function savePaper(paper) {
 		papersCollection.insert(paper, {safe: true}, function(er, rs) {
 			console.log('[DEBUG] inserted paper with ' + (er ? 'error `' + er + '`' : 'no error'));
 		});
-		return true;
 	}
-	var contents = JSON.stringify(papers || []);
-	return fs.writeFileSync(__dirname + '/data/papers.json', contents);
+	try {
+		var contents = JSON.stringify(papers || []);
+		return fs.writeFileSync(__dirname + '/data/papers.json', contents);
+	}
+	catch (e) {
+		return false;
+	}
 }
 // find the max paper id on server start
 function getMaxPaperId() {
