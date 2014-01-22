@@ -6,6 +6,7 @@ var fs = require('fs');
 app.use(express.bodyParser());
 
 // initialize data
+var mongo, mongoUri, papersCollection;
 var papers = loadPapersData() || [];
 var nextId = getMaxPaperId() + 1;
 
@@ -169,24 +170,6 @@ var port = process.env.PORT || 3001;
 app.listen(port, function() {
 	console.log("[DEBUG] Listening on " + port);
 });
-var mongo, mongoUri, papersCollection;
-if (process.env.PORT) {
-	mongo = require('mongodb');
-
-	mongoUri = process.env.MONGOLAB_URI ||
-	  process.env.MONGOHQ_URL ||
-	  'mongodb://localhost/mydb';
-
-	mongo.Db.connect(mongoUri, function (err, db) {
-		console.log('[DEBUG] connected to mongo at `' + mongoUri + '` with ' + (err ? 'error `' + err + '`' : 'no error'));
-	  db.collection('papers', function(er, collection) {
-		console.log('[DEBUG] opened collection `papers` with ' + (er ? 'error `' + er + '`' : 'no error'));
-	  	papersCollection = collection;	    
-	  });
-	});
-}
-
-
 
 
 // --- helper functions --- //
@@ -197,6 +180,22 @@ function getIpAddress(req) {
 // read our data on server start
 function loadPapersData() {
 	var papers = [];
+
+	if (process.env.PORT) {
+		mongo = require('mongodb');
+
+		mongoUri = process.env.MONGOLAB_URI ||
+		  process.env.MONGOHQ_URL ||
+		  'mongodb://localhost/mydb';
+
+		mongo.Db.connect(mongoUri, function (err, db) {
+			console.log('[DEBUG] connected to mongo at `' + mongoUri + '` with ' + (err ? 'error `' + err + '`' : 'no error'));
+		  db.collection('papers', function(er, collection) {
+			console.log('[DEBUG] opened collection `papers` with ' + (er ? 'error `' + er + '`' : 'no error'));
+		  	papersCollection = collection;	    
+		  });
+		});
+	}
 	if (papersCollection) {
 		papersCollection.find().toArray(function(err, items) {
 			console.log('[DEBUG] loaded ' + (items ? items.length : 0) + ' papers from mongo with ' + (err ? 'error `' + err + '`' : 'no error'));
