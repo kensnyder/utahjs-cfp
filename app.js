@@ -48,7 +48,7 @@ app.get('/submit', function(request, response) {
 // data submitted
 app.post('/submit', function(request, response) {
 	var paper = request.body.paper;
-	console.log(paper);
+	console.log('[BACKUP] paper submitted: ' + JSON.stringify(paper));
 	processPaper(paper);	
 	if (!isPaperValid(paper)) {
 		// required field missing		
@@ -167,7 +167,7 @@ app.post('/admin-comment.json', function(request, response) {
 // start server on requested port
 var port = process.env.PORT || 3001;
 app.listen(port, function() {
-	console.log("Listening on " + port);
+	console.log("[DEBUG] Listening on " + port);
 });
 var mongo, mongoUri, papersCollection;
 if (process.env.PORT) {
@@ -178,9 +178,9 @@ if (process.env.PORT) {
 	  'mongodb://localhost/mydb';
 
 	mongo.Db.connect(mongoUri, function (err, db) {
-		console.log('connected to mongo at `' + mongoUri + '` with ' + (err ? 'error `' + err + '`' : 'no error'));
+		console.log('[DEBUG] connected to mongo at `' + mongoUri + '` with ' + (err ? 'error `' + err + '`' : 'no error'));
 	  db.collection('papers', function(er, collection) {
-		console.log('opened collection `papers` with ' + (er ? 'error `' + er + '`' : 'no error'));
+		console.log('[DEBUG] opened collection `papers` with ' + (er ? 'error `' + er + '`' : 'no error'));
 	  	papersCollection = collection;	    
 	  });
 	});
@@ -199,7 +199,7 @@ function loadPapersData() {
 	var papers = [];
 	if (papersCollection) {
 		papersCollection.find().toArray(function(err, items) {
-			console.log('loaded ' + (items ? items.length : 0) + ' papers from mongo with ' + (err ? 'error `' + err + '`' : 'no error'));
+			console.log('[DEBUG] loaded ' + (items ? items.length : 0) + ' papers from mongo with ' + (err ? 'error `' + err + '`' : 'no error'));
 			papers = items || [];
 		});
 	}
@@ -213,7 +213,7 @@ function loadPapersData() {
 function savePaper(paper) {	
 	if (papersCollection) {
 		papersCollection.insert(paper, {safe: true}, function(er, rs) {
-			console.log('inserted paper with ' + (er ? 'error `' + er + '`' : 'no error'));
+			console.log('[DEBUG] inserted paper with ' + (er ? 'error `' + er + '`' : 'no error'));
 		});
 		return true;
 	}
