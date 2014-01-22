@@ -178,6 +178,7 @@ if (process.env.PORT) {
 	  'mongodb://localhost/mydb';
 
 	mongo.Db.connect(mongoUri, function (err, db) {
+		console.log('connected to mongo at `' + mongoUri + '` with ' + (er ? 'error `' + er + '`' : 'no error'));
 	  db.collection('papers', function(er, collection) {
 	  	papersCollection = collection;	    
 	  });
