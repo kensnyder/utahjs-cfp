@@ -2,7 +2,7 @@
 {{> nav}}
 
 <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
-<script src="/assets/papers.js"></script>
+<script src="/assets/js/papers.js"></script>
 
 <div class="main">
 	<h1>
@@ -13,27 +13,55 @@
 	{{/if}}
 	</h1>
 
-	<table class="table striped">
-
+	<table class="table striped {{ternary admin "admin"}}">
 		<tr>
-			<th>Vote!
-			<th>Date
-			<th>Name
-			<th>Email
-			<th>Title
-			<th>Description
+			<th class=vote>Vote
+			<th class=created>Date
+			<th class=name>Name
+			<th class=title>Presentation Title
+			<th class=description>Presentation Details
+			{{#if admin}}
+				<th class=actions>
+				<th class=comment>Comment
+			{{/if}}
 		{{#each papers}}
-			<tr data-id="{{_id}}">
-				<td><input type=checkbox>
+			<tr data-id="{{_id}}" class="paper{{#if deleted}} deleted{{/if}}">
+				<td>
+					<span class=voteup>
+						<span class=score>{{score}}</span>
+					</span>						
 				<td>{{date created}}
 				<td>{{name}}
-				<td>{{email}}
 				<td>{{title}}
+				<td class=description>
+					<div class=excerpt>
+						{{truncate description 80}}
+						<a class=more href="#">details &rsaquo;</a>
+					</div>
+					<div class=fulldesc>
+						<h4>About {{name}}</h4>
+						<p>{{bio}}</p>
+						{{#if github}}
+							<p><strong>Github:</strong> {{github}}</p>
+						{{/if}}
+						{{#if twitter}}
+							<p><strong>Twitter:</strong> {{twitter}}</p>
+						{{/if}}
+						<h4>Presentation Description</h4>
+						<p>{{nl2br description}}</p>
+						<p><a class=less href="#">&lsaquo; hide details</a></p>
+					</span>
+					
+				{{#if ../admin}}
 				<td>
-					{{description}}
-					<a class=more href="#">more &rsaquo;</a>
+					<a href="#" class="favorite favorite-{{admin_favorite}}"></a>
+					{{#unless deleted}}
+						<a href="#" class=delete>&times;</a>
+					{{/unless}}
+				<td>
+					<a href="#" class=comment title="Click to edit admin comment">{{admin_comment}}</a>
+				{{/if}}
 		{{/each}}
-
 	</table>
 </div>
 	

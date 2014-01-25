@@ -138,10 +138,25 @@ input[type=submit] {
 input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus, textarea:focus {
     color: #003DD3;
 }
-.cbox {
+.checkboxes label {
   font-weight: normal;
+  margin-top: 0.2em;
 }
 .error {
   font-weight: bold;
   color: red;
+  background-color: #EEEEEE;
+  border: 1px solid #FF0000;
+  margin-bottom: 1em;
+  padding: 5px 8px;  
+}
+/* voting table */
+.paper td {
+  vertical-align: top;
+}
+.description {
+  width: 50%;
+}
+.fulldesc {
+  display: none;
 }

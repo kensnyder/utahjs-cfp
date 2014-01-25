@@ -10,7 +10,7 @@ app.set('views', __dirname + '/app/views');
 app.engine('html', hbs.__express);
 // serve static files and favicon
 app.use('/assets', express.static(__dirname + '/app/assets'));
-//app.use(express.favicon(__dirname + '/app/assets/img/favicon.ico'));
+app.use(express.favicon(__dirname + '/app/assets/img/favicon.ico'));
 // setup partials in hbs
 hbs.registerPartials(__dirname + '/app/views/partials');
 

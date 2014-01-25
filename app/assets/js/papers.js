@@ -1,4 +1,4 @@
-(function($) {	
+(function($, localStorage) {	
 	function send(to, data, more) {
 		$.ajax($.extend({
 			type: 'post',
@@ -6,11 +6,43 @@
 			data: data
 		}, more || {}));
 	}
+	var votes = JSON.parse(localStorage.getItem('cfp-votes') || "{}");
+	function saveVotes() {
+		localStorage.setItem('cfp-votes', JSON.stringify(votes));
+	}
+	function markAsVoted(id) {
+		votes[id] = 1;
+		saveVotes();
+	}
+	function unmarkAsVoted(id) {
+		votes[id] = 1;
+		saveVotes();
+	}
+	function isVotedUp(id) {
+		return !!votes[id];
+	}
 	$(function() {
 		$('.paper').each(function() {
 			var $paper = $(this);
-			var id = $paper.attr('data-id');			
-			$paper.find('.upvote').click(function(evt) {
+			var id = $paper.attr('data-id');
+			var $excerpt = $paper.find('.description .excerpt');			
+			var $fulldesc = $paper.find('.description .fulldesc');			
+			$paper.find('.description .more').click(function(evt) {
+				evt.preventDefault();
+				$excerpt.hide();
+				$fulldesc.slideDown(300);
+			});			
+			$paper.find('.description .less').click(function(evt) {
+				evt.preventDefault();
+				$fulldesc.slideUp(300, function() {
+					$excerpt.show();
+				});
+			});
+			var $voteup = $paper.find('.voteup');
+			if (isVotedUp(id)) {
+				$voteup.addClass('upvoted');
+			}			
+			$voteup.click(function(evt) {
 				evt.preventDefault();
 				var $control = $(this);
 				var score = $control.hasClass('upvoted') ? '-1' : '1';
@@ -34,21 +66,31 @@
 				evt.preventDefault();
 				var $control = $(this);
 				var newState = $control.hasClass('deleted') ? '0' : '1';
-				$control.toggleClass('deleted');
+				$paper.addClass('deleted');
 				send('admin-delete', {
 					id: id,
 					state: newState
 				});
 			});
-			$paper.find('.comment').blur(function() {
-				var $input = $(this);
+			$paper.find('.comment').click(function(evt) {
+				evt.preventDefault();
+				var $control = $(this);
+				var newComment = prompt('Comment:', $control.text());
+				if (newComment === null) {
+					// cancelled
+					return;
+				}
+				$control.text(newComment);
 				send('admin-comment', {
 					id: id,
-					comment: $input.val()
+					comment: newComment
 				});
 			});
 		});
 //		$('.more').click();
 //		$('.less').click();
 	});
-})(jQuery);
+})(jQuery, window.localStorage || {
+	getItem: jQuery.noop,
+	setItem: jQuery.noop
+});

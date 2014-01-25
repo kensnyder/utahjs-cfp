@@ -4,15 +4,21 @@ var dsn = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'localcfp2';
 var collections = ["papers", "hits", "logs"];
 var mongojs = require('mongojs');
 var db = mongojs.connect(dsn, collections);		  
-var ObjectID = mongojs.ObjectId;
+var ObjectId = mongojs.ObjectId;
 
 function Paper(data) {
-	if (data) {		
+	if (data instanceof ObjectId) {		
+		this.data = { _id: data };
+	}
+	else if (typeof data == 'object') {		
 		'name email bio title description'.split(' ').forEach(function(field) {
 			data[field] = data[field] ? data[field].trim() : '';
 		});
 		this.data = data;
-	}	
+	}
+	else if (data) {
+		this.data = { _id: new ObjectId(data) };
+	}
 	else {
 		this.data = {};
 	}
@@ -27,7 +33,7 @@ Paper.prototype = {
 			db.papers.update({_id:this.data._id}, this.data, onComplete);
 		}
 		else {
-			this.data._id = new ObjectID();
+			this.data._id = new ObjectId();
 			this.data.created = new Date();
 			this.data.admin_favorite = false;
 			this.data.deleted = null;
@@ -36,6 +42,21 @@ Paper.prototype = {
 			this.data.votes = [];
 			db.papers.save(this.data, onComplete);
 		}
+	},
+	setDeletedState: function(newState, onComplete) {
+		db.papers.update({_id:this.data._id}, {
+			$set: { deleted: newState ? new Date() : null }
+		}, onComplete);
+	},
+	setComment: function(comment, onComplete) {
+		db.papers.update({_id:this.data._id}, {
+			$set: { admin_comment: comment }
+		}, onComplete);	
+	},
+	setFavoriteState: function(newState, onComplete) {
+		db.papers.update({_id:this.data._id}, {
+			$set: { admin_favorite: !!newState }
+		}, onComplete);
 	}
 };
 Paper.count = function(onComplete) {
@@ -45,10 +66,13 @@ Paper.findAll = function(onComplete) {
 	db.papers.find(onComplete);
 };
 Paper.addVote = function(data, onComplete) {
-	db.papers.update({_id: data.id}, {
+	db.papers.update({
+		_id: new ObjectId(data.id)
+	}, {
 		$inc: {score: data.vote.score},
 		$push: {votes: data.vote}
-	}, onComplete);
+	}, 
+	onComplete);
 };
 
 function Hit() {}
@@ -60,12 +84,29 @@ Hit.prototype = {
 
 function Log() {}
 Log.prototype = {
-	write: function(code, msg, onComplete) {
-		db.logs.save({
-			code: code,
-			msg: msg,
-			created: new Date()
-		}, onComplete);
+	write: function(code, msg, data, onComplete) {
+		if (typeof msg == 'function' || arguments.length == 1) {
+			db.logs.save({
+				code: 'LOG',
+				msg: code,
+				created: new Date()
+			}, msg);
+		}
+		else if (typeof data == 'function' || arguments.length == 2) {
+			db.logs.save({
+				code: code,
+				msg: msg,
+				created: new Date()
+			}, data);
+		}
+		else {
+			db.logs.save({
+				code: code,
+				msg: msg,
+				data: data,
+				created: new Date()
+			}, onComplete);
+		}
 	}
 }
 
