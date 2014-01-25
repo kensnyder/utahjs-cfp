@@ -77,7 +77,8 @@ function setup(app) {
 			// 	return;
 			// }			
 			response.render('success', {
-				title: 'Thank you for your submission :: ' + baseTitle
+				title: 'Thank you for your submission :: ' + baseTitle,
+				close_date: paperDeadline
 			});
 		});
 	});
