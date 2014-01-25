@@ -7,6 +7,7 @@ var Log = models.Log;
 
 // common stuff
 var baseTitle = 'UtahJS Conference - Friday June 6, 2014';
+var paperDeadline = 'March 3rd, 2014';
 
 var audiences = [
 	'Beginner Developers', 
@@ -38,7 +39,8 @@ function setup(app) {
 		Paper.count(function(err, count) {
 			response.render('index', {
 				title: baseTitle,
-				numPapers: count
+				numPapers: count,
+				close_date: paperDeadline
 			});
 		});
 	});
@@ -47,7 +49,8 @@ function setup(app) {
 		response.render('submit', {
 			title: 'Submit Presentation Proposal :: ' + baseTitle,
 			audiences: audiences,
-			paper: {}
+			paper: {},
+			close_date: paperDeadline
 		});
 	});
 	// data submitted
@@ -60,7 +63,8 @@ function setup(app) {
 				title: 'Submit Presentation Proposal :: ' + baseTitle,
 				error: 'Please complete all required fields.',
 				audiences: audiences,
-				paper: paper.data
+				paper: paper.data,
+				close_date: paperDeadline
 			});
 			return;
 		}
