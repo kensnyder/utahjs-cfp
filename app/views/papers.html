@@ -9,29 +9,36 @@
 	{{#if admin}}
 		Papers admin
 	{{else}}
-		Tell us which papers you like
+		Tell us which presentations you like
 	{{/if}}
 	</h1>
 
 	<table class="table striped {{ternary admin "admin"}}">
 		<tr>
-			<th class=vote>Vote
+			<th class=vote>Votes
+			{{#if admin}}
 			<th class=created>Date
+			{{/if}}
 			<th class=name>Name
 			<th class=title>Presentation Title
 			<th class=description>Presentation Details
 			{{#if admin}}
-				<th class=actions>
-				<th class=comment>Comment
+				<th class=fav>Fav
+				<th class=comm>Comment
+				<th class=del>Del
 			{{/if}}
 		{{#each papers}}
-			<tr data-id="{{_id}}" class="paper{{#if deleted}} deleted{{/if}}">
+			<tr data-id="{{_id}}" class=paper>
 				<td>
-					<span class=voteup>
+					<a href="#" class="icon voteup" title="Click to vote for this presentation">
 						<span class=score>{{score}}</span>
-					</span>						
+					</a>
+				{{#if ../admin}}						
 				<td>{{date created}}
+				<td><a class=mailto href="mailto:{{email}}?subject=2014%20UtahJS%20Conference%20Presentation%20Submission">{{name}}</a>
+				{{else}}
 				<td>{{name}}
+				{{/if}}
 				<td>{{title}}
 				<td class=description>
 					<div class=excerpt>
@@ -40,26 +47,28 @@
 					</div>
 					<div class=fulldesc>
 						<h4>About {{name}}</h4>
-						<p>{{bio}}</p>
+						<p>{{bio}}
 						{{#if github}}
-							<p><strong>Github:</strong> {{github}}</p>
+							<p><strong>Github:</strong> {{github}}
 						{{/if}}
 						{{#if twitter}}
-							<p><strong>Twitter:</strong> {{twitter}}</p>
+							<p><strong>Twitter:</strong> {{twitter}}
 						{{/if}}
 						<h4>Presentation Description</h4>
-						<p>{{nl2br description}}</p>
-						<p><a class=less href="#">&lsaquo; hide details</a></p>
+						<p>{{nl2br description}}
+						<p>Targeted for: {{join audience ", "}}
+						<p><a class=less href="#">&lsaquo; hide details</a>
 					</span>
 					
 				{{#if ../admin}}
 				<td>
-					<a href="#" class="favorite favorite-{{admin_favorite}}"></a>
-					{{#unless deleted}}
-						<a href="#" class=delete>&times;</a>
-					{{/unless}}
+					<a href="#" class="icon favorite {{ternary admin_favorite "favorited"}}" title="Click to favorite"></a>
 				<td>
-					<a href="#" class=comment title="Click to edit admin comment">{{admin_comment}}</a>
+					<a href="#" class="icon comment" title="Click to edit admin comment">
+						<span class=comment-text>{{admin_comment}}</span>
+					</a>
+				<td>
+					<a href="#" class="icon delete" title="Click to soft delete"></a>
 				{{/if}}
 		{{/each}}
 	</table>

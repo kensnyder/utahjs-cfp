@@ -26,6 +26,9 @@ function setup(hbs) {
 		contains: function(array, value) {
 			return array.indexOf(value) > -1;
 		},
+		join: function(array, glue) {
+			return array.join(glue);
+		},
 		checkboxes: function(name, options, selected) {
 			selected = selected || [];
 			var map;

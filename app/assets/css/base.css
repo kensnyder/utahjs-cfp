@@ -5,6 +5,9 @@ body {
 h1 {
     font-size: 2.3em;
 }
+a {
+  outline: 0 !important;
+}
 /* layout */
 .main {
   padding: 30px;
@@ -33,24 +36,26 @@ header {
 /* nav */
 nav {
   background-color: #0071CD;
-  padding: 30px;
 }
 nav ul {
-  margin: 0;
+  margin: 0 15px;
 }
 nav li {
   display: inline-block;
-  margin: 0 30px 0 0;
+  margin: 0;
 }
 nav li a,
 nav li a:visited {
+  display: inline-block;
+  padding: 15px 15px;
   color: rgba(255,255,255,0.88);
   font-weight: bold;
   text-decoration: none;
 }
 nav li a:hover,
 nav li a:visited:hover {
-  color: rgba(255,255,255,1);
+  background-color: #329AEE;
+  color: #fff;
   font-weight: bold;
 }
 /* footer */
@@ -150,6 +155,12 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
   margin-bottom: 1em;
   padding: 5px 8px;  
 }
+.required:after {
+  content: "*";
+  font: 16px "Times New Roman", Times, serif;
+  color: red;
+  margin-left: 2px;
+}
 /* voting table */
 .paper td {
   vertical-align: top;
@@ -159,4 +170,72 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 }
 .fulldesc {
   display: none;
+}
+.paper a {
+  text-decoration: none;
+}
+.paper a.mailto,
+.paper a.less,
+.paper a.more {
+  text-decoration: underline;;
+}
+/* icons */
+@font-face {
+  font-family: 'icons';
+  src:url('/assets/fonts/icons/icons.eot');
+  src:url('/assets/fonts/icons/icons.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/icons/icons.woff') format('woff'),
+    url('/assets/fonts/icons/icons.ttf') format('truetype'),
+    url('/assets/fonts/icons/icons.svg#icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.icon:before {
+  font-family: 'icons';
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  color: #ccc;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon:hover:before {
+  color: #0071cd;
+}
+.voteup {
+  color: #ccc;
+}
+.comment:before {
+  content: "\e600";
+  font-size: 16px;
+}
+.delete:before {
+  content: "\e601";
+}
+.voteup:before {
+  content: "\e602";
+}
+.favorite:before {
+  content: "\e603";
+}
+.favorited:before {
+  content: "\e604";
+}
+.upvoted,
+.upvoted:before,
+.favorited:before {
+  color: #0071cd;
+}
+.comment-text {
+  font-size: 12px;
+  margin-left: 4px;
 }

@@ -27,6 +27,7 @@ function setup(app) {
 		}
 		new Hit().save({
 			ip: getIpAddress(request),
+			uid: request.param('uid') || request.body.uid,
 			method: request.method,
 			uri: request.host + request.originalUrl,
 			post: request.body,
@@ -119,6 +120,9 @@ function setup(app) {
 	// list of papers in admin mode
 	app.get('/papers-admin', function(request, response) {
 		Paper.findAll(function(err, papers) {
+			papers = papers.filter(function(paper) {
+				return !paper.deleted;
+			});
 			response.render('papers', {
 				title: 'Papers Admin :: ' + baseTitle,
 		   		papers: papers,
@@ -127,10 +131,10 @@ function setup(app) {
 		});
 	});
 	// favorite or unfavorite from admin page
-	app.post('/admin-faviorite.json', function(request, response) {
+	app.post('/admin-favorite.json', function(request, response) {
 		var id = request.param('id');
 		var onoff = request.param('onoff') === '1';
-		new Paper(id).setFavoriteState(comment, function(err, result) {			
+		new Paper(id).setFavoriteState(onoff, function(err, result) {			
 			response.json({
 				success: !err && result && result.n == 1
 			});
