@@ -50,6 +50,19 @@ function setup(hbs) {
 				out += '> ' + hbs.Utils.escapeExpression(map[key]) + '</label>\n';
 			});
 			return new hbs.SafeString(out);
+		},
+		socialLink: function(username, template, prefix) {
+			username = username.replace(/^@/, '').replace(/^http.+\//, '');
+			var text = hbs.Utils.escapeExpression(prefix + username);
+			var href = hbs.Utils.escapeExpression(template.replace('%s', username));
+			var html = '<a class=social-link target=_blank href="' + href + '">' + text + '</a>';
+			return new hbs.SafeString(html);
+		},
+		twitter: function(username) {
+			return helpers.socialLink(username, 'http://twitter.com/%s', '@');
+		},
+		github: function(username) {
+			return helpers.socialLink(username, 'https://github.com/%s', '');
 		}
 	};
 	Object.keys(helpers).forEach(function(key) {

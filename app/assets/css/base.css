@@ -174,6 +174,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 .paper a {
   text-decoration: none;
 }
+.paper a.social-link,
 .paper a.mailto,
 .paper a.less,
 .paper a.more {

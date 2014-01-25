@@ -71,16 +71,13 @@
 					$control.addClass('upvoted');
 					markAsVoted(id);
 				}
-				$score.text( parseFloat($score.text()) + score );
+				var newScore = parseFloat($score.text()) + score;
+				$score.fadeOut(400, function() {
+					$score.text(newScore).fadeIn(400);
+				});
 				send('tally', {
 					id: id,
-					score: score,
-					success: function(result) {
-						console.log('tally success!', result);
-						if (result && result.newScore) {
-							$score.text(result.newScore);
-						}
-					}
+					score: score
 				});
 			});
 			// mark as favorited
