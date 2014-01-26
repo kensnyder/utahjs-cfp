@@ -27,6 +27,9 @@ function setup(hbs) {
 			return array.indexOf(value) > -1;
 		},
 		join: function(array, glue) {
+			if (!Array.isArray(array)) {
+				return array;
+			}
 			return array.join(glue);
 		},
 		checkboxes: function(name, options, selected) {
