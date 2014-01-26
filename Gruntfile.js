@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 			compress: {
 				files: {
 					'./app/assets/css/styles.min.css': [
-						'./app/assets/css/base.css',
+						'./app/assets/css/horus.css',
 						'./app/assets/css/base.css'
 					]
 				}
