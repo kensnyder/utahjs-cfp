@@ -180,6 +180,10 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 .paper a.more {
   text-decoration: underline;;
 }
+.less,
+.more {
+  white-space: nowrap;
+}
 /* icons */
 @font-face {
   font-family: 'icons';
