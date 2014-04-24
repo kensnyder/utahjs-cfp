@@ -7,7 +7,7 @@ var Log = models.Log;
 
 // common stuff
 var baseTitle = 'UtahJS Conference - Friday June 6, 2014';
-var paperDeadline = 'March 3rd, 2014';
+var paperDeadline = 'May 12th, 2014';
 
 var audiences = [
 	'Beginner Developers', 
