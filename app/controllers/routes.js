@@ -93,6 +93,9 @@ function setup(app) {
 				paper.votes = paper.votes.filter(function(vote) {
 					return vote.ip != '97.75.189.62';
 				});
+				paper.score = paper.votes.reduce(function(sum, vote) {
+					return sum + vote.score;
+				}, 0);
 			});
 			response.render('papers', {
 				title: 'Which papers do you like? :: ' + baseTitle,
@@ -132,7 +135,10 @@ function setup(app) {
 				paper.votes = paper.votes.filter(function(vote) {
 					return vote.ip != '97.75.189.62';
 				});
-			});			
+				paper.score = paper.votes.reduce(function(sum, vote) {
+					return sum + vote.score;
+				}, 0);
+			});
 			response.render('papers', {
 				title: 'Papers Admin :: ' + baseTitle,
 		   		papers: papers,
