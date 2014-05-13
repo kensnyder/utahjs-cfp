@@ -89,6 +89,11 @@ function setup(app) {
 			papers = papers.filter(function(paper) {
 				return !paper.deleted;
 			});
+			papers.forEach(function(paper) {
+				paper.votes = paper.votes.filter(function(vote) {
+					return vote.ip != '97.75.189.62';
+				});
+			});
 			response.render('papers', {
 				title: 'Which papers do you like? :: ' + baseTitle,
 		   		papers: papers,
@@ -123,6 +128,11 @@ function setup(app) {
 			papers = papers.filter(function(paper) {
 				return !paper.deleted;
 			});
+			papers.forEach(function(paper) {
+				paper.votes = paper.votes.filter(function(vote) {
+					return vote.ip != '97.75.189.62';
+				});
+			});			
 			response.render('papers', {
 				title: 'Papers Admin :: ' + baseTitle,
 		   		papers: papers,
