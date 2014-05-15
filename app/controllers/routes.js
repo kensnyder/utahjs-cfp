@@ -150,7 +150,7 @@ function setup(app) {
 	app.get('/favorites', function(request, response) {
 		Paper.findAll(function(err, papers) {
 			papers = papers.filter(function(paper) {
-				return !paper.admin_favorite;
+				return !!paper.admin_favorite;
 			});
 			papers.forEach(function(paper, i) {
 				paper.idx = i+1;
