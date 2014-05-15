@@ -152,8 +152,7 @@ function setup(app) {
 			papers = papers.filter(function(paper) {
 				return !!paper.admin_favorite;
 			});
-			papers.forEach(function(paper, i) {
-				paper.idx = i+1;
+			papers.forEach(function(paper) {
 				paper.votes = (paper.votes || []).filter(function(vote) {
 					return vote.ip != '97.75.189.62';
 				});
@@ -171,6 +170,9 @@ function setup(app) {
 					return -1;
 				}
 				return a.score > b.score;
+			});
+			papers.forEach(function(paper, i) {
+				paper.idx = i+1;
 			});
 			response.render('favorites', {
 				title: 'Admin Favorites :: ' + baseTitle,
