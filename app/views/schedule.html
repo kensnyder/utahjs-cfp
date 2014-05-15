@@ -14,7 +14,7 @@
 		<tr class=paper>
 			<td>
 				{{#each papers}}
-					<p><a href="#{{_id}}" class="expand" title="Click to view details">{{title}}</a>
+					<p><a href="#" data-id="id{{_id}}" class="expand" title="Click to view details">{{title}}</a>
 						<br>
 						<em>By {{name}}</em>
 				{{/each}}
@@ -22,7 +22,7 @@
 			<td>TBA
 	</table>
 	{{#each papers}}
-		<div id="{{_id}}" style="display:none" class="expanded">
+		<div id="id{{_id}}" style="display:none" class="expanded">
 			<h4>Presentation Description</h4>
 			<p>{{nl2br description}}
 			<p>Targeted for: {{join audience ", "}}
@@ -34,7 +34,7 @@
 			{{#if twitter}}
 				<p><strong>Twitter:</strong> {{twitter twitter}}
 			{{/if}}
-				<p><a href="#" class="back" data-id="{{_id}}">&laquo; Back</a>
+				<p><a href="#" data-id="id{{_id}}" class="back">&laquo; Back</a>
 		</div>
 	{{/each}}
 </div>
@@ -46,7 +46,7 @@ var $sched = $('#sched');
 $('.expand').on('click', function(evt) {
 	evt.preventDefault();
 	$sched.hide();
-	$('#' + this.id).fadeIn(300);
+	$('#' + this.getAttribute('data-id')).fadeIn(300);
 });
 $('.back').on('click', function(evt) {
 	evt.preventDefault();
