@@ -181,6 +181,22 @@ function setup(app) {
 			});
 		});
 	});
+	// schedule
+	app.get('/schedule', function(request, response) {
+		Paper.findAll(function(err, papers) {
+			papers = papers.filter(function(paper) {
+				return (/auditorium/i).test(paper.admin_comment);
+			});			
+			papers.forEach(function(paper, i) {
+				paper.idx = i+1;
+			});
+			response.render('schedule', {
+				title: 'Accepted Papers :: ' + baseTitle,
+		   		papers: papers,
+				admin: true
+			});
+		});
+	});
 	// favorite or unfavorite from admin page
 	app.post('/admin-favorite.json', function(request, response) {
 		var id = request.param('id');

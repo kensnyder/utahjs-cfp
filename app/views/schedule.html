@@ -1,0 +1,56 @@
+{{> head}}
+{{> nav}}
+
+<div class="main">
+	<h1>Accepted Papers</h1>	
+
+	<p>Exact order and times to be announced soon. Speakers for Room C and Room A will be announced soon.
+	
+	<table id="sched" class="table striped">
+		<tr>
+			<th class=vote>Auditorium
+			<th class=name>Room C
+			<th class=name>Room A
+		<tr class=paper>
+			<td>
+				{{#each papers}}
+					<p>{{name}} - <a href="#{{_id}}" class="more" title="Click to view details">{{title}}</a>
+				{{/each}
+			<td>TBA
+			<td>TBA
+	</table>
+	{{#each papers}}
+		<div id="{{_id}}" style="display:none" class="expanded">
+			<h4>Presentation Description</h4>
+			<p>{{nl2br description}}
+			<p>Targeted for: {{join audience ", "}}
+			<h4>About {{name}}</h4>
+			<p>{{bio}}
+			{{#if github}}
+				<p><strong>Github:</strong> {{github github}}
+			{{/if}}
+			{{#if twitter}}
+				<p><strong>Twitter:</strong> {{twitter twitter}}
+			{{/if}}
+				<p><a href="#" class="back" data-id="{{_id}}">&laquo; Back</a>
+		</div>
+	{{/each}
+</div>
+
+
+<script>
+var $sched = $('#sched');
+$('.more').on('click', function(evt) {
+	evt.preventDefault();
+	$sched.hide();
+	$('#' + this.id).fadeIn(300);
+});
+$('.back').on('click', function(evt) {
+	evt.preventDefault();
+	$('#' + this.getAttribute('data-id')).fadeOut(300, function() {
+		$sched.show();
+	});
+});
+</script>
+
+{{> footer}}
