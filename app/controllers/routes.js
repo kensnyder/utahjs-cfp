@@ -154,10 +154,10 @@ function setup(app) {
 			});
 			papers.forEach(function(paper, i) {
 				paper.idx = i+1;
-				paper.votes = paper.votes.filter(function(vote) {
+				paper.votes = (paper.votes || []).filter(function(vote) {
 					return vote.ip != '97.75.189.62';
 				});
-				paper.score = paper.votes.reduce(function(sum, vote) {
+				paper.score = (paper.votes || []).reduce(function(sum, vote) {
 					return sum + vote.score;
 				}, 0);
 			});
