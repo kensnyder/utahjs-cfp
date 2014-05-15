@@ -146,6 +146,39 @@ function setup(app) {
 			});
 		});
 	});
+	// list of favorited papers
+	app.get('/favorites', function(request, response) {
+		Paper.findAll(function(err, papers) {
+			papers = papers.filter(function(paper) {
+				return !paper.admin_favorite;
+			});
+			papers.forEach(function(paper, i) {
+				paper.idx = i+1;
+				paper.votes = paper.votes.filter(function(vote) {
+					return vote.ip != '97.75.189.62';
+				});
+				paper.score = paper.votes.reduce(function(sum, vote) {
+					return sum + vote.score;
+				}, 0);
+			});
+			papers = papers.sort(function(a, b) {
+				var aBig = (a.admin_comment || '').match(/auditorium/i) ? 0 : 1;
+				var bBig = (b.admin_comment || '').match(/auditorium/i) ? 0 : 1;
+				if (aBig > bBig) {
+					return 1;
+				}
+				if (aBig < bBig) {
+					return -1;
+				}
+				return a.score > b.score;
+			});
+			response.render('favorites', {
+				title: 'Admin Favorites :: ' + baseTitle,
+		   		papers: papers,
+				admin: true
+			});
+		});
+	});
 	// favorite or unfavorite from admin page
 	app.post('/admin-favorite.json', function(request, response) {
 		var id = request.param('id');

@@ -1,0 +1,29 @@
+{{> head}}
+{{> nav}}
+
+<div class="main">
+	<h1>Favorited papers</h1>	
+
+	<table class="table striped">
+		<tr>
+			<th class=idx>ID
+			<th class=vote>Votes
+			<th class=name>Name
+			<th class=title>Presentation Title
+			<th class=comm>Room
+		{{#each papers}}
+			<tr data-id="{{_id}}" class=paper>
+				<td>{{idx}}
+				<td>{{score}}
+				<td>{{name}}
+				<td>{{title}}
+				<td>{{admin_comment}}
+		{{/each}}
+	</table>
+</div>
+<p>
+		{{#each papers}}
+			"{{name}}" &lt;{{email}}&gt;,
+		{{/each}}
+</p>
+{{> footer}}
