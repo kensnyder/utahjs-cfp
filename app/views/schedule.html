@@ -2,7 +2,7 @@
 {{> nav}}
 
 <div class="main">
-	<h1>Accepted Papers</h1>	
+	<h1>Accepted Papers (in no particular order)</h1>	
 
 	<p>Exact order and times to be announced soon. Speakers for Room C and Room A will be announced soon.
 	
@@ -23,7 +23,7 @@
 	</table>
 	{{#each papers}}
 		<div id="id{{_id}}" style="display:none" class="expanded">
-			<h4>Presentation Description</h4>
+			<h4>{{title}}</h4>
 			<p>{{nl2br description}}
 			<p>Targeted for: {{join audience ", "}}
 			<h4>About {{name}}</h4>
@@ -56,11 +56,18 @@ $('.back').on('click', function(evt) {
 });
 </script>
 <style>
-	.room {
-		width: 300px;
-	}
-	#sched {
-		width: auto;
-	}
+.room {
+	width: 300px;
+}
+#sched {
+	width: auto;
+}
+.expand {
+	text-decoration: underline !important;
+}
+.expanded {
+	border: 4px solid #DDDDDD;
+	padding: 30px;
+}
 </style>
 {{> footer}}
