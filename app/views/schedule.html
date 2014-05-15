@@ -8,13 +8,15 @@
 	
 	<table id="sched" class="table striped">
 		<tr>
-			<th class=vote>Auditorium
-			<th class=name>Room C
-			<th class=name>Room A
+			<th class=room>Auditorium
+			<th class=room>Room C
+			<th class=room>Room A
 		<tr class=paper>
 			<td>
 				{{#each papers}}
-					<p>{{name}} - <a href="#{{_id}}" class="more" title="Click to view details">{{title}}</a>
+					<p><a href="#{{_id}}" class="expand" title="Click to view details">{{title}}</a>
+						<br>
+						<em>By {{name}}</em>
 				{{/each}}
 			<td>TBA
 			<td>TBA
@@ -38,9 +40,10 @@
 </div>
 
 
+<script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
 <script>
 var $sched = $('#sched');
-$('.more').on('click', function(evt) {
+$('.expand').on('click', function(evt) {
 	evt.preventDefault();
 	$sched.hide();
 	$('#' + this.id).fadeIn(300);
@@ -52,5 +55,12 @@ $('.back').on('click', function(evt) {
 	});
 });
 </script>
-
+<style>
+	.room {
+		width: 300px;
+	}
+	#sched {
+		width: auto;
+	}
+</style>
 {{> footer}}
