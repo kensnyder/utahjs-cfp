@@ -249,7 +249,7 @@ function getIpAddress(req) {
 
 function generateSchedule(papers) {
 	papers.forEach(function(paper) {
-		paper.slot = parseFloat((paper.admin_comment || '').replace(/\D/g, '')) || 0;
+		paper.slot = parseFloat((paper.admin_comment || '').replace(/\D/g, '')) || 9;
 	});
 	papers = papers.sort(function(a, b) {
 		return a.slot > b.slot;
