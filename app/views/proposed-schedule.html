@@ -1,0 +1,129 @@
+{{> head}}
+{{> nav}}
+
+<div class="main">
+	<h1>Schedule: UtahJS 2014</h1>	
+
+	<table id=sched class="table">
+		<tr>
+			<th class=time>Time
+			<th class=room>Auditorium
+			<th class=room>Room C
+			<th class=room>Room A
+		</tr>
+		{{#each schedule}}
+			<tr>
+				<td class="time t{{minutes}}min{{#if is_talk}} talk{{/if}}">{{time}}</td>
+				{{#if is_talk}}
+					<td class=talk>
+						<p><a href="#" data-id="id{{large._id}}" class="expand" title="Click to view details">{{large.title}}</a>
+						<br>
+						<em>By {{large.name}}</em>
+					</td>
+					<td class=talk>
+						<p><a href="#" data-id="id{{medium._id}}" class="expand" title="Click to view details">{{medium.title}}</a>
+						<br>
+						<em>By {{medium.name}}</em>
+					</td>
+					<td class=talk>
+						<p><a href="#" data-id="id{{small._id}}" class="expand" title="Click to view details">{{small.title}}</a>
+						<br>
+						<em>By {{small.name}}</em>
+					</td>
+				{{else}}
+				<td class=break colspan=3>{{text}}</td>
+				{{/if}}
+			</tr>
+		{{/each}}
+	</table>
+	{{#each papers}}
+		<div id="id{{_id}}" style="display:none" class="expanded">
+			<h4>{{title}}</h4>
+			<p>{{nl2br description}}
+			<p>Targeted for: {{join audience ", "}}
+			<h4>About {{name}}</h4>
+			<p>{{bio}}
+			{{#if github}}
+				<p><strong>Github:</strong> {{github github}}
+			{{/if}}
+			{{#if twitter}}
+				<p><strong>Twitter:</strong> {{twitter twitter}}
+			{{/if}}
+				<p><a href="#" data-id="id{{_id}}" class="back">&laquo; Back</a>
+		</div>
+	{{/each}}
+</div>
+
+
+<script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+var $sched = $('#sched');
+$('.expand').on('click', function(evt) {
+	evt.preventDefault();
+	$sched.hide();
+	$('#' + this.getAttribute('data-id')).fadeIn(300);
+});
+$('.back').on('click', function(evt) {
+	evt.preventDefault();
+	$('#' + this.getAttribute('data-id')).fadeOut(300, function() {
+		$sched.show();
+	});
+});
+</script>
+<style>
+#sched {
+	width: auto;
+}
+#sched td {
+	padding: 0 0.5em;
+	border: 2px solid #ccc;
+}
+#sched th {
+	padding: 0.5em;
+	border: 2px solid #ccc;
+	text-align: center;
+}
+.room {
+	width: 30%;
+}
+.expand {
+	text-decoration: underline !important;
+}
+.expanded {
+	border: 4px solid #DDDDDD;
+	padding: 30px;
+}
+.time {
+	text-wrap: avoid;
+	white-space: nowrap;
+}
+.t15min {
+	height: 2em;
+}
+.t30min {
+	height: 4em;
+}
+.t45min {
+	height: 6em;
+}
+.t60min {
+	height: 8em;
+}
+.t90min {
+	height: 12em;
+}
+.t120min {
+	height: 16em;
+}
+.table .break {
+	text-align: center;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+.talk {
+	background-color: #D9EEFF;
+}
+</style>
+
+{{> footer}}

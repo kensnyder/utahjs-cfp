@@ -2,10 +2,8 @@
 {{> nav}}
 
 <div class=main>
-
-	<h2>Paper submissions are closed.</h2>
 	
-	{{!--
+	{{#if admin}}
 	{{#if error}}
 		<h2>Submit Presentation Proposal</h2>
 
@@ -44,7 +42,10 @@
 		</fieldset>
 		<input type=submit value="Submit" />
 	</form>
-	--}}
+	{{else}}
+		<h2>Paper submissions are closed.</h2>
+	{{/if}}
+	
 </div>
 
 {{> footer}}

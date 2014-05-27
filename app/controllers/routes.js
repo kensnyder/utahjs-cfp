@@ -51,7 +51,8 @@ function setup(app) {
 			title: 'Submit Presentation Proposal :: ' + baseTitle,
 			audiences: audiences,
 			paper: {},
-			close_date: paperDeadline
+			close_date: paperDeadline,
+			admin: request.query.admin
 		});
 	});
 	// data submitted
@@ -185,7 +186,7 @@ function setup(app) {
 	app.get('/schedule', function(request, response) {
 		Paper.findAll(function(err, papers) {
 			papers = papers.filter(function(paper) {
-				return (/auditorium/i).test(paper.admin_comment);
+				return paper.admin_favorite && (/auditorium/i).test(paper.admin_comment);
 			});			
 			papers.forEach(function(paper, i) {
 				paper.idx = i+1;
@@ -197,6 +198,17 @@ function setup(app) {
 			});
 		});
 	});
+	// proposed schedule
+	app.get('/proposed-schedule', function(request, response) {
+		Paper.findAll(function(err, papers) {
+			var schedule = generateSchedule(papers);
+			response.render('proposed-schedule', {
+				title: 'Schedule :: ' + baseTitle,
+				schedule: schedule.schedule,
+				papers: schedule.papers
+			});
+		});
+	});	
 	// favorite or unfavorite from admin page
 	app.post('/admin-favorite.json', function(request, response) {
 		var id = request.param('id');
@@ -233,6 +245,129 @@ function setup(app) {
 // get ip addresses
 function getIpAddress(req) {
 	return req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+}
+
+function generateSchedule(papers) {
+	papers.forEach(function(paper) {
+		paper.slot = parseFloat(paper.admin_comment.replace(/\D/g, '')) || 0;
+	});
+	papers = papers.sort(function(a, b) {
+		return a.slot > b.slot;
+	});
+	var small = [], medium = [], large = [];
+	papers.forEach(function(paper) {
+		if (!paper.admin_favorite) { return; }
+		if ((/aud/i   ).test(paper.admin_comment)) { large.push(paper); }
+		if ((/medium/i).test(paper.admin_comment)) { medium.push(paper); }
+		if ((/small/i ).test(paper.admin_comment)) { small.push(paper); }
+	});
+	var schedule = [
+		{
+			time: '8:30am - 9:00am',
+			minutes: 30,
+			text: 'Registration'
+		},
+		{
+			time: '9:00am - 9:10am',
+			minutes: 15,
+			text: 'Welcome'
+		},
+		{
+			time: '9:15am - 9:55am',
+			minutes: 45,
+			is_talk: true,
+			large: large[0],
+			medium: medium[0],
+			small: small[0]
+		},
+		{
+			time: '9:55am - 10:15am',
+			minutes: 15,
+			text: 'Break'
+		},
+		{
+			time: '10:15am - 10:55am',
+			minutes: 45,
+			is_talk: true,
+			large: large[1],
+			medium: medium[1],
+			small: small[1]
+		},
+		{
+			time: '11:00am - 11:40am',
+			minutes: 45,
+			is_talk: true,
+			large: large[2],
+			medium: medium[2],
+			small: small[2]
+		},
+		{
+			time: '11:40am - 1:15pm',
+			minutes: 90,
+			text: 'Lunch'
+		},
+		{
+			time: '1:15pm - 1:55pm',
+			minutes: 45,
+			is_talk: true,
+			large: large[3],
+			medium: medium[3],
+			small: small[3]
+		},		
+		{
+			time: '2:00pm - 2:40pm',
+			minutes: 45,
+			is_talk: true,
+			large: large[4],
+			medium: medium[4],
+			small: small[4]
+		},
+		{
+			time: '2:40pm - 3:00pm',
+			minutes: 15,
+			text: 'Break'
+		},
+		{
+			time: '3:00pm - 3:40pm',
+			minutes: 45,
+			is_talk: true,
+			large: large[5],
+			medium: medium[5],
+			small: small[5]
+		},		
+		{
+			time: '3:45pm - 4:25pm',
+			minutes: 45,
+			is_talk: true,
+			large: large[6],
+			medium: medium[6],
+			small: small[6]
+		},
+		{
+			time: '4:30pm - 5:10pm',
+			minutes: 45,
+			is_talk: true,
+			large: large[7],
+			medium: medium[7],
+			small: small[7]
+		},	
+		{
+			time: '5:15pm - 5:30pm',
+			minutes: 15,
+			text: 'Giveaway'
+		},	
+		{
+			time: '5:30pm - 6:30pm',
+			minutes: 60,
+			text: 'Break'
+		},	
+		{
+			time: '6:30pm - 8:30pm',
+			minutes: 120,
+			text: 'Dinner at O.C. Tanner'
+		}
+	];
+	return {schedule:schedule, papers:papers};
 }
 
 module.exports = {

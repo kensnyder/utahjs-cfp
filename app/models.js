@@ -1,6 +1,6 @@
 "use strict";
 
-var dsn = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'localcfp2';
+var dsn = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://heroku_app21420041_A:tNDygPwSWhKxUhMUVqlNBsdyPVjkyzqD@ds027419.mongolab.com:27419/heroku_app21420041';
 var collections = ["papers", "hits", "logs"];
 var mongojs = require('mongojs');
 var db = mongojs.connect(dsn, collections);		  
