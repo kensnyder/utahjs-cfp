@@ -251,8 +251,8 @@ function generateSchedule(papers) {
 	papers.forEach(function(paper) {
 		paper.slot = parseFloat((paper.admin_comment || '').replace(/\D/g, '')) || 9;
 	});
-	papers = papers.sort(function(a, b) {
-		return a.slot > b.slot;
+	papers = papers.sort(function(a, b) {		
+		return a.slot - b.slot;
 	});
 	var small = [], medium = [], large = [];
 	papers.forEach(function(paper) {
