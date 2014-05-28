@@ -183,7 +183,7 @@ function setup(app) {
 		});
 	});
 	// schedule
-	app.get('/schedule', function(request, response) {
+	app.get('/old-schedule', function(request, response) {
 		Paper.findAll(function(err, papers) {
 			papers = papers.filter(function(paper) {
 				return paper.admin_favorite && (/auditorium/i).test(paper.admin_comment);
@@ -199,7 +199,7 @@ function setup(app) {
 		});
 	});
 	// proposed schedule
-	app.get('/proposed-schedule', function(request, response) {
+	app.get('/schedule', function(request, response) {
 		Paper.findAll(function(err, papers) {
 			var schedule = generateSchedule(papers);
 			response.render('proposed-schedule', {
@@ -364,7 +364,7 @@ function generateSchedule(papers) {
 		{
 			time: '6:30pm - 8:30pm',
 			minutes: 120,
-			text: 'Dinner at O.C. Tanner'
+			text: 'Dinner'
 		}
 	];
 	return {schedule:schedule, papers:papers};
