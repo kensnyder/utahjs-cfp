@@ -363,7 +363,7 @@ function generateSchedule(papers) {
 			text: 'Break'
 		},	
 		{
-			time: '6:30pm - 8:30pm',
+			time: '6:30pm - 9:30pm',
 			minutes: 120,
 			text: 'Free Dinner and After Party - O.C. Tanner: 1865 S. Main'
 		}
