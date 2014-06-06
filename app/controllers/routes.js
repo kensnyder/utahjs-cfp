@@ -257,6 +257,7 @@ function generateSchedule(papers) {
 	var small = [], medium = [], large = [];
 	papers.forEach(function(paper) {
 		if (!paper.admin_favorite) { return; }
+		if ((/cancel?led/i).test(paper.admin_comment)) { paper.canceled = true; }
 		if ((/aud/i   ).test(paper.admin_comment)) { large.push(paper); }
 		if ((/medium/i).test(paper.admin_comment)) { medium.push(paper); }
 		if ((/small/i ).test(paper.admin_comment)) { small.push(paper); }
@@ -364,7 +365,7 @@ function generateSchedule(papers) {
 		{
 			time: '6:30pm - 8:30pm',
 			minutes: 120,
-			text: 'Dinner'
+			text: 'Free Dinner and After Party - O.C. Tanner: 1865 S. Main'
 		}
 	];
 	return {schedule:schedule, papers:papers};
