@@ -194,7 +194,17 @@ function setup(app) {
 //			});
 //		});
 //	});	
-	// proposed schedule
+	// design our shirts!
+	app.get('/shirts', function(request, response) {
+		// static page
+		response.render('shirts');
+	});	
+	// schedule coming soon page
+	app.get('/schedule', function(request, response) {
+		// static page
+		response.render('schedule-soon');
+	});	
+	// official schedule
 	app.get('/schedule-2014', function(request, response) {
 		// static page
 		response.render('schedule-2014');
