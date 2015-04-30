@@ -86,47 +86,47 @@ function setup(app) {
 		});
 	});
 	// voting page
-	app.get('/vote', function(request, response) {
-		Paper.findAll(function(err, papers) {
-			papers = papers.filter(function(paper) {
-				return !paper.deleted;
-			});
-			papers.forEach(function(paper) {
-				paper.votes = paper.votes.filter(function(vote) {
-					return vote.ip != '97.75.189.62';
-				});
-				paper.score = paper.votes.reduce(function(sum, vote) {
-					return sum + vote.score;
-				}, 0);
-			});
-			response.render('papers', {
-				title: 'Which papers do you like? :: ' + baseTitle,
-		   		papers: papers,
-				admin: false
-			});
-		});
-	});
-	// ajax request to tally vote
-	app.post('/tally.json', function(request, response) {
-		var id = request.param('id');
-		var score = request.param('score') === '-1' ? -1 : 1;
-		var uid = request.param('uid') || 1;
-		var data = {
-			id: id,
-			vote: {
-				date: new Date(),
-				ip: getIpAddress(request),
-				score: score,
-				uid: uid
-			}
-		};
-		console.log('addingVote for ' + id);
-		Paper.addVote(data, function(err, result) {
-			response.json({
-				success: !err && result.n == 1
-			});
-		});
-	});
+//	app.get('/vote', function(request, response) {
+//		Paper.findAll(function(err, papers) {
+//			papers = papers.filter(function(paper) {
+//				return !paper.deleted;
+//			});
+//			papers.forEach(function(paper) {
+//				paper.votes = paper.votes.filter(function(vote) {
+//					return vote.ip != '97.75.189.62';
+//				});
+//				paper.score = paper.votes.reduce(function(sum, vote) {
+//					return sum + vote.score;
+//				}, 0);
+//			});
+//			response.render('papers', {
+//				title: 'Which papers do you like? :: ' + baseTitle,
+//		   		papers: papers,
+//				admin: false
+//			});
+//		});
+//	});
+//	// ajax request to tally vote
+//	app.post('/tally.json', function(request, response) {
+//		var id = request.param('id');
+//		var score = request.param('score') === '-1' ? -1 : 1;
+//		var uid = request.param('uid') || 1;
+//		var data = {
+//			id: id,
+//			vote: {
+//				date: new Date(),
+//				ip: getIpAddress(request),
+//				score: score,
+//				uid: uid
+//			}
+//		};
+//		console.log('addingVote for ' + id);
+//		Paper.addVote(data, function(err, result) {
+//			response.json({
+//				success: !err && result.n == 1
+//			});
+//		});
+//	});
 	// list of papers in admin mode
 	app.get('/papers-admin', function(request, response) {
 		Paper.findAll(function(err, papers) {
