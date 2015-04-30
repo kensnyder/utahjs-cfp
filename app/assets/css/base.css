@@ -1,9 +1,17 @@
 /* general */
-body {
+body, select, textarea, input {
 	font-size: 16px;
+	font-family: 'Open Sans', sans-serif;
+}
+textarea {
+	 resize: auto;
 }
 h1 {
     font-size: 2.3em;
+}
+h1, h2, h3, h4, h5, .what {
+	color: #000;
+	font-family: 'Roboto', sans-serif;
 }
 a {
   outline: 0 !important;
@@ -16,20 +24,20 @@ a {
 }
 /* header */
 header {
-  background: url("/assets/img/downtown-library.jpg") no-repeat scroll 100% 0 #EEEEEE;
+  background: url("/assets/img/downtown-library.jpg") no-repeat scroll 100% 0 #000;
   background-size: 50%;
-  color: #0071CD;
+  color: #E7181C;
   padding: 2em;
 }
 .what {
   font-size: 1.8em;
-  font-weight: bold;
   width: 40%;
+  color: #E7181C;
 }
 .when,
 .where {
   font-size: 0.8em;
-  color: #666;
+  color: #A1A1A1;
   font-style: italic;
   width: 40%;
 }
@@ -38,7 +46,7 @@ header {
 }
 /* nav */
 nav {
-  background-color: #0071CD;
+  background-color: #E7181C;
 }
 nav ul {
   margin: 0 1em;
@@ -57,13 +65,13 @@ nav li a:visited {
 }
 nav li a:hover,
 nav li a:visited:hover {
-  background-color: #329AEE;
+  background-color: #C30013;
   color: #fff;
   font-weight: bold;
 }
 /* footer */
 footer {
-  background-color: #0071CD;
+  background-color: #E7181C;
   color: rgba(255,255,255,0.66);
   padding: 0.8em;
   font-size: 0.8em;
@@ -94,23 +102,23 @@ input[type="submit"],
 input[type="reset"],
 input[type="button"] {
   font: inherit;
+  font-weight: bold;
   display: inline-block;
-  padding: 0.5em 0.75em;
+  padding: 1em 2em;
   text-decoration: none;
   cursor: pointer;
-  
   color: #f9f9f9;
-  background-color: #3085CB;
-  background: linear-gradient(to bottom, #3085CB, #1267AD);
-  background: -webkit-linear-gradient(top, #3085CB, #1267AD);
-  background: -moz-linear-gradient(center 1px, #3085CB, #1267AD);
-  background: -ms-linear-gradient(top, #3085CB, #1267AD);
-  background: -o-linear-gradient(top, #3085CB, #1267AD);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#3085CB', endColorstr='#1267AD)');
-  border: 1px solid #1267AD;
+  background-color: #444;
+  background: linear-gradient(to bottom, #444, #000);
+  background: -webkit-linear-gradient(top, #444, #000);
+  background: -moz-linear-gradient(center 1px, #444, #000);
+  background: -ms-linear-gradient(top, #444, #000);
+  background: -o-linear-gradient(top, #444, #000);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#444', endColorstr='#000)');
+  border: 1px solid #000;
   
   border-radius: 0.3em;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0, 0, 0, 0.09);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 .bt:hover,
 .pagination a:hover,
@@ -119,22 +127,23 @@ input[type="submit"]:hover,
 input[type="reset"]:hover,
 input[type="button"]:hover {
   color: #fff;
-  background-color: #00559B;
-  background: linear-gradient(to bottom, #00559B, #013D75);
-  background: -webkit-linear-gradient(top, #00559B, #013D75);
-  background: -moz-linear-gradient(center 1px, #00559B, #013D75);
-  background: -ms-linear-gradient(top, #00559B, #013D75);
-  background: -o-linear-gradient(top, #00559B, #013D75);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#00559B', endColorstr='#013D75)');
-  border: 1px solid #00559B;
+  background-color: #666;
+  background: linear-gradient(to bottom, #666, #222);
+  background: -webkit-linear-gradient(top, #666, #222);
+  background: -moz-linear-gradient(center 1px, #666, #222);
+  background: -ms-linear-gradient(top, #666, #222);
+  background: -o-linear-gradient(top, #666, #222);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#666', endColorstr='#222)');
+  border: 1px solid #666;
 }
 legend {
-  background: #eee;
-  border: 1px solid #0071CD;
-  color: #0071CD;
+  background: #000;
+  border: 1px solid #000;
+  color: #eee;
+  padding: 1em 2em;
 }
 fieldset {
-  border-top: 1px solid #0071CD;
+  border-top: 1px solid #000;
   padding-bottom: 3em;
 }
 label {
@@ -144,7 +153,8 @@ input[type=submit] {
   width: auto;
 }
 input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus, textarea:focus {
-    color: #003DD3;
+    background-color: #F6f6f6;
+	color: #333;
 }
 .checkboxes label {
   font-weight: normal;
@@ -246,6 +256,32 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 .comment-text {
   font-size: 0.75em;
   margin-left: 0.25em;
+}
+.info-table td,
+.info-table th {
+	border: 1px solid #DE0016;
+	padding: 1.5em 0.75em;
+	text-align: center;
+	vertical-align: top;
+}
+.info-table th {
+	font-weight: bold;
+	color: #000;
+	vertical-align: bottom;
+	background-color: #ddd;
+}
+.info-table td:nth-child(2n) {
+	background-color: #f1f1f1;
+}
+.sponsor-table th {
+	width: 7%;
+	padding: 1.5em 0.25em;
+}
+.sponsor-table td:first-child,
+.sponsor-table th:first-child {
+	width: 23%;
+	text-align: left;
+	padding: 1.5em 0.75em;
 }
 @media only screen and (max-width: 479px) {
 	h1 {

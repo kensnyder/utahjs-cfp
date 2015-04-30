@@ -3,45 +3,45 @@
 
 <div class=main>
 	
-	{{#if admin}}
-	{{#if error}}
-		<h2>Submit Presentation Proposal</h2>
+	{{#if accepting}}
+		{{#if error}}
+			<h2>Submit Presentation Proposal</h2>
 
-		<div class=error>{{error}}</div>
-	{{else}}
-		<h1>Call For Speakers</h1>
+			<div class=error>{{error}}</div>
+		{{else}}
+			<h1>Call For Speakers</h1>
 
-		<p>Submissions close {{close_date}}. We will review submissions and get back to a few weeks later.
+			<p>Submissions close {{close_date}}. We will review submissions and get back to a few weeks later.
 
-		<p>Speakers will receive entry in to the conference and an invitation to the dinner the night before.
-	    
-		<h2>Submit Presentation Proposal</h2>
+			<p>Speakers will receive entry in to the conference and an invitation to the dinner the night before.
 
-		<p>Presentations should be about 30 to 40 minutes. The conference will be a one-day event on Friday, June 6th, 2014. Feel free to submit multiple papers.
+			<h2>Submit Presentation Proposal</h2>
 
-		<p><span class=required>Asterisk</span> indicates required fields.
-	{{/if}}
+			<p>Presentations should be about 30 to 40 minutes. The conference will be a one-day event on Friday, September 25, 2015. Feel free to submit multiple papers.
 
-	<form action="" method="post" class="submit-form">
-		<fieldset>
-			<legend>About You</legend>
-			<label class=required>Name</label><input type=text name="paper[name]" value="{{paper.name}}">
-			<label class=required>Email</label><input type=text name="paper[email]" value="{{paper.email}}">
-			<label>Github Username</label><input type=text name="paper[github]" value="{{paper.github}}">
-			<label>Twitter Handle</label><input type=text name="paper[twitter]" value="{{paper.twitter}}">
-			<label class=required>Introduce yourself</label><textarea rows="3" name="paper[bio]">{{paper.bio}}</textarea>		
-		</fieldset>
-		<fieldset>
-			<legend>Your Presentation</legend>
-			<label class=required>Title</label><input type=text name="paper[title]" value="{{paper.title}}">
-			<label class=required>Description</label><textarea rows="12" name="paper[description]">{{paper.description}}</textarea>
-			<label class=required>Whom are you targeting?</label>
-			<div class=checkboxes>
-				{{checkboxes "paper[audience]" audiences paper.audience}}
-			</div>
-		</fieldset>
-		<input type=submit value="Submit" />
-	</form>
+			<p><span class=required>Asterisk</span> indicates required fields.
+		{{/if}}
+
+		<form action="" method="post" class="submit-form">
+			<fieldset>
+				<legend>About You</legend>
+				<label class=required>Name</label><input type=text name="paper[name]" value="{{paper.name}}">
+				<label class=required>Email</label><input type=text name="paper[email]" value="{{paper.email}}">
+				<label>Github Username</label><input type=text name="paper[github]" value="{{paper.github}}">
+				<label>Twitter Handle</label><input type=text name="paper[twitter]" value="{{paper.twitter}}">
+				<label class=required>Introduce yourself</label><textarea rows="3" name="paper[bio]">{{paper.bio}}</textarea>		
+			</fieldset>
+			<fieldset>
+				<legend>Your Presentation</legend>
+				<label class=required>Title</label><input type=text name="paper[title]" value="{{paper.title}}">
+				<label class=required>Description</label><textarea rows="12" name="paper[description]">{{paper.description}}</textarea>
+				<label class=required>Whom are you targeting?</label>
+				<div class=checkboxes>
+					{{checkboxes "paper[audience]" audiences paper.audience}}
+				</div>
+			</fieldset>
+			<input type=submit value="Submit" />
+		</form>
 	{{else}}
 		<h2>Paper submissions are closed.</h2>
 	{{/if}}

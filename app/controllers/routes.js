@@ -6,11 +6,11 @@ var Hit = models.Hit;
 var Log = models.Log;
 
 // common stuff
-var baseTitle = 'UtahJS Conference - Friday June 6, 2014';
-var paperDeadline = 'May 12th, 2014';
+var baseTitle = 'UtahJS Conference - Friday September 25, 2015';
+var paperDeadline = 'June 1st, 2015';
 
 var audiences = [
-	'Beginner Developers', 
+	'Beginner Developers',
 	'Experienced Developers',
 	'Quality Assurance Engineers',
 	'Other IT Professionals',
@@ -48,6 +48,7 @@ function setup(app) {
 	// submit form
 	app.get('/submit', function(request, response) {
 		response.render('submit', {
+			accepting: true,
 			title: 'Submit Presentation Proposal :: ' + baseTitle,
 			audiences: audiences,
 			paper: {},
@@ -183,31 +184,25 @@ function setup(app) {
 		});
 	});
 	// schedule
-	app.get('/old-schedule', function(request, response) {
-		Paper.findAll(function(err, papers) {
-			papers = papers.filter(function(paper) {
-				return paper.admin_favorite && (/auditorium/i).test(paper.admin_comment);
-			});			
-			papers.forEach(function(paper, i) {
-				paper.idx = i+1;
-			});
-			response.render('schedule', {
-				title: 'Accepted Papers :: ' + baseTitle,
-		   		papers: papers,
-				admin: true
-			});
-		});
-	});
+//	app.get('/schedule', function(request, response) {
+//		Paper.findAll(function(err, papers) {
+//			var schedule = generateSchedule(papers);
+//			response.render('proposed-schedule', {
+//				title: 'Schedule :: ' + baseTitle,
+//				schedule: schedule.schedule,
+//				papers: schedule.papers
+//			});
+//		});
+//	});	
 	// proposed schedule
-	app.get('/schedule', function(request, response) {
-		Paper.findAll(function(err, papers) {
-			var schedule = generateSchedule(papers);
-			response.render('proposed-schedule', {
-				title: 'Schedule :: ' + baseTitle,
-				schedule: schedule.schedule,
-				papers: schedule.papers
-			});
-		});
+	app.get('/schedule-2014', function(request, response) {
+		// static page
+		response.render('schedule-2014');
+	});	
+	// sponsorship information
+	app.get('/sponsor', function(request, response) {
+		// static page
+		response.render('sponsor');
 	});	
 	// favorite or unfavorite from admin page
 	app.post('/admin-favorite.json', function(request, response) {
@@ -365,7 +360,7 @@ function generateSchedule(papers) {
 		{
 			time: '6:30pm - 9:30pm',
 			minutes: 120,
-			text: 'Free Dinner and After Party - O.C. Tanner: 1865 S. Main'
+			text: 'Dinner and After Party'
 		}
 	];
 	return {schedule:schedule, papers:papers};
