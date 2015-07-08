@@ -46,7 +46,7 @@ function setup(app) {
 		});
 	});
 	// submit form
-	app.get('/submit', function(request, response) {
+	app.get('/late-submit', function(request, response) {
 		response.render('submit', {
 			accepting: true,
 			title: 'Submit Presentation Proposal :: ' + baseTitle,
