@@ -13,6 +13,20 @@
 	{{/if}}
 	</h1>
 
+  <div>
+    <label>Sort by:</label>
+    <select class="js-sort-by">
+      <option value="date" selected="selected">Submission Date</option>
+      <option value="popularity">Popularity</option>
+      <option value="favs">Favorites</option>
+    </select>
+    <!--
+    <label>Include Disqualified:
+    <input type="checkbox">
+    </label>
+    -->
+  </div>
+
 	<table class="table striped {{ternary admin "admin"}}">
 		<tr>
 			<th class=vote>Votes
@@ -28,13 +42,13 @@
 				<th class=del>Del
 			{{/if}}
 		{{#each papers}}
-			<tr data-id="{{_id}}" class=paper>
+			<tr data-id="{{_id}}" class="js-paper paper">
 				<td>
 					<a href="#" class="icon voteup" title="Click to vote for this presentation">
-						<span class=score>{{score}}</span>
+						<span class="js-score score">{{score}}</span>
 					</a>
-				{{#if ../admin}}						
-				<td>{{date created}}
+				{{#if ../admin}}
+				<td class="js-date">{{date created}}
 				<td><a class=mailto href="mailto:{{email}}?subject=2014%20UtahJS%20Conference%20Presentation%20Submission">{{name}}</a>
 				{{else}}
 				<td>{{name}}
@@ -59,10 +73,10 @@
 						<p>Targeted for: {{join audience ", "}}
 						<p><a class=less href="#">&lsaquo; hide details</a>
 					</span>
-					
+
 				{{#if ../admin}}
 				<td>
-					<a href="#" class="icon favorite {{ternary admin_favorite "favorited"}}" title="Click to favorite"></a>
+					<a href="#" class="js-favorite icon favorite {{ternary admin_favorite "favorited"}}" title="Click to favorite"></a>
 				<td>
 					<a href="#" class="icon comment" title="Click to edit admin comment">
 						<span class=comment-text>{{admin_comment}}</span>
@@ -73,5 +87,5 @@
 		{{/each}}
 	</table>
 </div>
-	
+
 {{> footer}}

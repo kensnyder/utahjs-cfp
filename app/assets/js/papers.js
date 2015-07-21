@@ -1,4 +1,6 @@
-(function($, localStorage, JSON) {	
+(function($, localStorage, JSON) {
+  'use strict';
+
 	function getUid() {
 		var uid = localStorage.getItem('uid');
 		if (!uid) {
@@ -8,7 +10,7 @@
 		return uid;
 	}
 	function send(to, data, more) {
-		if (typeof data == 'object') {
+		if (typeof data === 'object') {
 			data.uid = getUid();
 		}
 		return $.ajax($.extend({
@@ -32,19 +34,76 @@
 	function isVotedUp(id) {
 		return !!votes[id];
 	}
+
 	$(function() {
+    /*jshint validthis: true*/
+
+    function sortByScore() {
+      [].slice.call(document.querySelectorAll('tr.js-paper')).sort(function (a, b) {
+          a = parseInt(a.querySelector('td:first-of-type .js-score').innerHTML);
+          b = parseInt(b.querySelector('td:first-of-type .js-score').innerHTML);
+          return a > b ? -1 : b > a ? 1 : 0;
+      }).forEach(function (node) {
+          node.parentNode.appendChild(node);
+      });
+    }
+
+    function sortByDate() {
+      [].slice.call(document.querySelectorAll('tr.js-paper')).sort(function (a, b) {
+          a = new Date(a.querySelector('td:first-of-type .js-date').innerHTML).valueOf();
+          b = new Date(b.querySelector('td:first-of-type .js-date').innerHTML).valueOf();
+          // show newest first
+          return a > b ? -1 : b > a ? 1 : 0;
+      }).forEach(function (node) {
+          node.parentNode.appendChild(node);
+      });
+    }
+
+    function isFavorited(el) {
+      return /favorited/i.test(
+        el.querySelector('td:first-of-type .js-favorite').className
+      ) ? 1 : -1;
+    }
+    function sortByFav() {
+      [].slice.call(document.querySelectorAll('tr.js-paper')).sort(function (a, b) {
+          a = isFavorited(a);
+          b = isFavorited(b);
+          return a > b ? -1 : b > a ? 1 : 0;
+      }).forEach(function (node) {
+          node.parentNode.appendChild(node);
+      });
+    }
+
+    function updateSort() {
+      var val = $(this).val() || 'date';
+      console.log(val);
+
+      if (/date/i.test(val)) {
+        sortByDate();
+      }
+      else if (/pop|score/i.test(val)) {
+        sortByScore();
+      }
+      else if (/fav/i.test(val)) {
+        sortByFav();
+      }
+    }
+
+    $('body').on('change', '.js-sort-by', updateSort);
+    sortByDate();
+
 		$('.paper').each(function() {
 			// get data and elements
 			var $paper = $(this);
 			var id = $paper.attr('data-id');
-			var $excerpt = $paper.find('.description .excerpt');			
-			var $fulldesc = $paper.find('.description .fulldesc');			
+			var $excerpt = $paper.find('.description .excerpt');
+			var $fulldesc = $paper.find('.description .fulldesc');
 			// setup more/less buttons for description
 			$paper.find('.description .more').click(function(evt) {
 				evt.preventDefault();
 				$excerpt.hide();
 				$fulldesc.slideDown(300);
-			});			
+			});
 			$paper.find('.description .less').click(function(evt) {
 				evt.preventDefault();
 				$fulldesc.slideUp(300, function() {
@@ -53,14 +112,16 @@
 			});
 			// mark as voted up if previously voted up
 			var $voteup = $paper.find('.voteup');
-			var $score = $voteup.find('.score');
+			var $score = $voteup.find('.js-score');
 			if (isVotedUp(id)) {
 				$voteup.addClass('upvoted');
-			}			
+			}
 			// setup vote up button
 			$voteup.click(function(evt) {
 				evt.preventDefault();
 				var $control = $(this);
+        var score;
+
 				if ($control.hasClass('upvoted')) {
 					score = -1;
 					$control.removeClass('upvoted');
@@ -94,7 +155,7 @@
 			// soft delete
 			$paper.find('.delete').click(function(evt) {
 				evt.preventDefault();
-				if (!confirm('Are you sure you want to delete this submission?')) {
+				if (!window.confirm('Are you sure you want to delete this submission?')) {
 					return;
 				}
 				$paper.remove();
@@ -107,8 +168,8 @@
 			var $commentText = $paper.find('.comment-text');
 			$paper.find('.comment').click(function(evt) {
 				evt.preventDefault();
-				var $control = $(this);
-				var newComment = prompt('Comment:', $commentText.text());
+
+				var newComment = window.prompt('Comment:', $commentText.text());
 				if (newComment === null) {
 					// cancelled
 					return;
