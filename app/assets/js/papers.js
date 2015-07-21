@@ -61,7 +61,7 @@
 
     function isFavorited(el) {
       return /favorited/i.test(
-        el.querySelector('td:first-of-type .js-favorite').className
+        el.querySelector('.js-favorite').className
       ) ? 1 : -1;
     }
     function sortByFav() {
