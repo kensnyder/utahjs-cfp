@@ -50,8 +50,8 @@
 
     function sortByDate() {
       [].slice.call(document.querySelectorAll('tr.js-paper')).sort(function (a, b) {
-          a = new Date(a.querySelector('td:first-of-type .js-date').innerHTML).valueOf();
-          b = new Date(b.querySelector('td:first-of-type .js-date').innerHTML).valueOf();
+          a = new Date(a.querySelector('.js-date').innerHTML).valueOf();
+          b = new Date(b.querySelector('.js-date').innerHTML).valueOf();
           // show newest first
           return a > b ? -1 : b > a ? 1 : 0;
       }).forEach(function (node) {
@@ -61,7 +61,7 @@
 
     function isFavorited(el) {
       return /favorited/i.test(
-        el.querySelector('td:first-of-type .js-favorite').className
+        el.querySelector('.js-favorite').className
       ) ? 1 : -1;
     }
     function sortByFav() {

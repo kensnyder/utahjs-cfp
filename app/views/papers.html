@@ -30,9 +30,7 @@
 	<table class="table striped {{ternary admin "admin"}}">
 		<tr>
 			<th class=vote>Votes
-			{{#if admin}}
 			<th class=created>Date
-			{{/if}}
 			<th class=name>Name
 			<th class=title>Presentation Title
 			<th class=description>Presentation Details
@@ -47,8 +45,8 @@
 					<a href="#" class="icon voteup" title="Click to vote for this presentation">
 						<span class="js-score score">{{score}}</span>
 					</a>
-				{{#if ../admin}}
 				<td class="js-date">{{date created}}
+				{{#if ../admin}}
 				<td><a class=mailto href="mailto:{{email}}?subject=2014%20UtahJS%20Conference%20Presentation%20Submission">{{name}}</a>
 				{{else}}
 				<td>{{name}}
