@@ -1,7 +1,8 @@
+'use strict';
+
 var express = require('express');
 var app = express();
 var hbs = require('hbs');
-var fs = require('fs');
 // decode post values
 app.use(express.bodyParser());
 // use handlebars as templating engine
@@ -22,5 +23,5 @@ require('./app/controllers/routes').setup(app);
 // start server on requested port
 var port = process.env.PORT || 3001;
 app.listen(port, function() {
-	console.log("> Listening on " + port);
+	console.log("> Listening on http://localhost.conf.utahjs.com:" + port);
 });

@@ -1,16 +1,16 @@
 "use strict";
 
-var dsn = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://heroku_app21420041_A:tNDygPwSWhKxUhMUVqlNBsdyPVjkyzqD@ds027419.mongolab.com:27419/heroku_app21420041';
+var dsn = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || require('../config').mongoUri;
 var collections = ["papers2015", "hits2015", "logs2015"];
 var mongojs = require('mongojs');
-var db = mongojs.connect(dsn, collections);		  
+var db = mongojs.connect(dsn, collections);
 var ObjectId = mongojs.ObjectId;
 
 function Paper(data) {
-	if (data instanceof ObjectId) {		
+	if (data instanceof ObjectId) {
 		this.data = { _id: data };
 	}
-	else if (typeof data == 'object') {		
+	else if (typeof data == 'object') {
 		'name email bio title description'.split(' ').forEach(function(field) {
 			data[field] = data[field] ? data[field].trim() : '';
 		});
@@ -51,7 +51,7 @@ Paper.prototype = {
 	setComment: function(comment, onComplete) {
 		db.papers2015.update({_id:this.data._id}, {
 			$set: { admin_comment: comment }
-		}, onComplete);	
+		}, onComplete);
 	},
 	setFavoriteState: function(newState, onComplete) {
 		db.papers2015.update({_id:this.data._id}, {
@@ -71,7 +71,7 @@ Paper.addVote = function(data, onComplete) {
 	}, {
 		$inc: {score: data.vote.score},
 		$push: {votes: data.vote}
-	}, 
+	},
 	onComplete);
 };
 
