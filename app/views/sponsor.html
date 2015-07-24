@@ -18,7 +18,7 @@
 	 <td>1 of 1</td><!-- gold -->
 	 <td>1 of 2</td><!-- silver -->
 	 <td>5 of 5</td><!-- bronze -->
-	 <td>1 of 2</td><!-- booth -->
+	 <td>0 of 2</td><!-- booth -->
 	 <td>2 of 2</td><!-- dinner + afterparty -->
 	 <td>1 of 1</td><!-- attendee t-shirts -->
 	 <td>1 of 1</td><!-- name badges -->
@@ -40,10 +40,18 @@
  <tr><td>Logo on Staff/Speaker T-Shirt</td><td>Medium</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>Medium</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
  <tr><td>Logo on Podium</td><td>&#10003;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
  <tr><td>Help at Registration Desk</td><td>&#10003;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&#10003;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
- <tr><td>Booth</td><td>&#10003;</td><td>&nbsp;</td><td>&nbsp;</td><td>&#10003;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+ <tr><td>Booth</td><td></td><td>&nbsp;</td><td>&nbsp;</td><td>&#10003;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
  <tr><td>Sales Talk at the Welcome Session</td><td>5 minutes</td><td>2 minutes</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td></td></tr>
 </table>
 
+	<style>
+		/* 0 slots remaining */
+		.tableizer-table td:nth-child(5), /* 5=booth */
+		.tableizer-table th:nth-child(5)
+		{
+			opacity: 0.25;
+		}
+	</style>
 </div>
 	
 </div>
