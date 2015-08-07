@@ -57,7 +57,7 @@ function setup(app) {
 		});
 	});
 	// data submitted
-	app.post('/submit', function(request, response) {
+	app.post('/late-submit', function(request, response) {
 		var paper = new Paper(request.body.paper);
 		new Log().write('BACKUP', 'paper submitted:', paper.data);
 		if (!paper.isValid()) {
