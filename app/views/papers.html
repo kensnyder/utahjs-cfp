@@ -13,19 +13,21 @@
 	{{/if}}
 	</h1>
 
-  <div>
-    <label>Sort by:</label>
-    <select class="js-sort-by">
-      <option value="date" selected="selected">Submission Date</option>
-      <option value="popularity">Popularity</option>
-      <option value="favs">Favorites</option>
-    </select>
-    <!--
-    <label>Include Disqualified:
-    <input type="checkbox">
-    </label>
-    -->
-  </div>
+	{{#if admin}}
+	  <div>
+		<label style="display: inline-block">Sort by:</label>
+		<select class="js-sort-by" style="width: auto; display: inline-block;">
+		  <option value="date" selected="selected">Submission Date</option>
+		  <option value="popularity">Popularity</option>
+		  <option value="favs">Favorites</option>
+		</select>
+		<!--
+		<label>Include Disqualified:
+		<input type="checkbox">
+		</label>
+		-->
+	  </div>
+	{{/if}}
 
 	<table class="table striped {{ternary admin "admin"}}">
 		<tr>
