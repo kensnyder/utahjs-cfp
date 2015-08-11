@@ -2,27 +2,154 @@
 {{> nav}}
 
 <div class="main">
-	<h1>Accepted Papers (in no particular order)</h1>	
-
-	<p>Exact order and times to be announced soon. Speakers for Room C and Room A will be announced soon.
+	<h1>Schedule: 2015 UtahJS Conference</h1>
 	
-	<table id="sched" class="table striped">
-		<tr>
-			<th class=room>Auditorium
-			<th class=room>Room C
-			<th class=room>Room A
-		<tr class=paper>
-			<td>
-				{{#each papers}}
-					<p><a href="#" data-id="id{{_id}}" class="expand" title="Click to view details">{{title}}</a>
-						<br>
-						<em>By {{name}}</em>
-				{{/each}}
-			<td>TBA
-			<td>TBA
-	</table>
+	<p><em>Schedule is subject to change.</em></p>
+
+	<div id=sched>
+		<table class="table desktop-only">
+			<tr>
+				<th class=time>Time
+				<th class=room>Auditorium
+				<th class=room>Room C
+				<th class=room>Room A
+			</tr>
+			{{#each schedule}}
+				<tr>
+					<td class="time t{{minutes}}min">{{time}}</td>
+					{{#if is_talk}}
+						{{#if large.canceled}}
+							<td class="talk canceled">
+								<span class="canceled-notice">Canceled</span>
+								<span class="canceled-descr">
+									{{large.title}}
+									<br>
+									<em>By {{large.name}}</em>
+								</span>
+							</td>
+						{{else}}
+							<td class=talk>
+								<a href="#" data-id="id{{large._id}}" class="expand" title="Click to view details">{{large.title}}</a>
+								<br>
+								<em>By {{large.name}}</em>
+							</td>
+						{{/if}}
+						{{#if medium.canceled}}
+							<td class="talk canceled">
+								<span class="canceled-notice">Canceled</span>
+								<span class="canceled-descr">
+									{{medium.title}}
+									<br>
+									<em>By {{medium.name}}</em>
+								</span>
+							</td>
+						{{else}}
+							<td class=talk>
+								<a href="#" data-id="id{{medium._id}}" class="expand" title="Click to view details">{{medium.title}}</a>
+								<br>
+								<em>By {{medium.name}}</em>
+							</td>
+						{{/if}}
+						{{#if small.canceled}}
+							<td class="talk canceled">
+								<span class="canceled-notice">Canceled</span>
+								<span class="canceled-descr">
+									{{small.title}}
+									<br>
+									<em>By {{small.name}}</em>
+								</span>
+							</td>
+						{{else}}
+							<td class=talk>
+								<a href="#" data-id="id{{small._id}}" class="expand" title="Click to view details">{{small.title}}</a>
+								<br>
+								<em>By {{small.name}}</em>
+							</td>
+						{{/if}}
+					{{else}}{{#if is_keynote}}
+						<td class="keynote">
+							<strong>Keynote:</strong>
+							<a href="#" data-id="id{{large._id}}" class="expand" title="Click to view details">{{large.title}}</a>
+							<br>
+							<em>By {{large.name}}</em>
+						</td>
+						<td class="empty"></td>
+						<td class="empty"></td>
+					{{else}}
+						<td class=break colspan=3>{{text}}</td>
+					{{/if}}{{/if}}
+				</tr>
+			{{/each}}
+		</table>
+		<div class="mobile-only">
+			{{#each schedule}}
+				<div class="mobile-slot">
+					<div class="mobile-time {{#if is_talk}} mobile-talk{{/if}}">{{time}}</div>
+					{{#if is_talk}}
+						<div class="mobile-room">Auditorium</div>
+						{{#if large.canceled}}
+							<div class="mobile-talk canceled">
+								<span class="canceled-notice">Canceled</span>
+								<span class="canceled-descr">
+									{{large.title}}
+									<em>By {{large.name}}</em>
+								</span>
+							</div>
+						{{else}}
+							<div class=mobile-talk>
+								<a href="#" data-id="id{{large._id}}" class="expand" title="Click to view details">{{large.title}}</a>
+								<em>By {{large.name}}</em>
+							</div>
+						{{/if}}
+						
+						<div class="mobile-room mobile-room-c">Room C</div>
+						{{#if medium.canceled}}
+							<div class="mobile-talk canceled">
+								<span class="canceled-notice">Canceled</span>
+								<span class="canceled-descr">
+									{{medium.title}}
+									<em>By {{medium.name}}</em>
+								</span>
+							</div>
+						{{else}}
+							<div class=mobile-talk>
+								<a href="#" data-id="id{{medium._id}}" class="expand" title="Click to view details">{{medium.title}}</a>
+								<em>By {{medium.name}}</em>
+							</div>
+						{{/if}}
+						
+						<div class="mobile-room mobile-room-a">Room A</div>
+						{{#if small.canceled}}
+							<div class="mobile-talk canceled">
+								<span class="canceled-notice">Canceled</span>
+								<span class="canceled-descr">
+									{{small.title}}
+									<em>By {{small.name}}</em>
+								</span>
+							</div>
+						{{else}}
+							<div class=mobile-talk>
+								<a href="#" data-id="id{{small._id}}" class="expand" title="Click to view details">{{small.title}}</a>
+								<em>By {{small.name}}</em>
+							</div>
+						{{/if}}
+					{{else}}{{#if is_keynote}}
+						<div class="mobile-talk keynote">
+							<strong>Keynote:</strong>
+							<a href="#" data-id="id{{large._id}}" class="expand" title="Click to view details">{{large.title}}</a>
+							<br>
+							<em>By {{large.name}}</em>
+						</div>
+					{{else}}
+						<div class=mobile-break>{{text}}</div>
+					{{/if}}{{/if}}
+				</div>
+			{{/each}}				
+		</div>
+	</div>
 	{{#each papers}}
 		<div id="id{{_id}}" style="display:none" class="expanded">
+			<p><input type="button" data-id="id{{_id}}" class="back" value="&laquo; Back">
 			<h4>{{title}}</h4>
 			<p>{{nl2br description}}
 			<p>Targeted for: {{join audience ", "}}
@@ -34,7 +161,7 @@
 			{{#if twitter}}
 				<p><strong>Twitter:</strong> {{twitter twitter}}
 			{{/if}}
-				<p><a href="#" data-id="id{{_id}}" class="back">&laquo; Back</a>
+			<p><input type="button" data-id="id{{_id}}" class="back" value="&laquo; Back">
 		</div>
 	{{/each}}
 </div>
@@ -56,11 +183,20 @@ $('.back').on('click', function(evt) {
 });
 </script>
 <style>
-.room {
-	width: 300px;
-}
 #sched {
 	width: auto;
+}
+#sched td {
+	padding: 0 0.5em;
+	border: 1px solid #ccc;
+}
+#sched th {
+	padding: 0.5em;
+	border: 1px solid #ccc;
+	text-align: center;
+}
+.room {
+	width: 30%;
 }
 .expand {
 	text-decoration: underline !important;
@@ -69,5 +205,104 @@ $('.back').on('click', function(evt) {
 	border: 4px solid #DDDDDD;
 	padding: 30px;
 }
+.expanded .back {
+	width: 100px;
+}
+.time {
+	text-wrap: avoid;
+	white-space: nowrap;
+}
+.t15min {
+	height: 2em;
+}
+.t30min,
+.t35min {
+	height: 4em;
+}
+.t40min,
+.t45min {
+	height: 6em;
+}
+.t60min {
+	height: 8em;
+}
+.t90min {
+	height: 12em;
+}
+.t105min {
+	height: 14em;
+}
+.t120min {
+	height: 16em;
+}
+.table .break {
+	text-align: center;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+.keynote {
+	background-color: #E3FFD5;
+}
+.talk {
+	background-color: #D9EEFF;
+}
+.mobile-slot {
+	border: 1px solid #0071CD;
+	margin: 20px 0;
+}
+.mobile-time,
+.mobile-break,
+.mobile-talk {
+	padding: 5px 10px;
+}
+.mobile-time {
+	background-color: #0071CD;
+	text-align: center;
+	color: #fff;
+}
+.mobile-break {
+}
+.mobile-room {
+	padding: 10px 10px 0 10px; 
+	text-transform: uppercase;
+	color: #999;
+	font-size: 14px;
+	text-align: center;
+}
+.mobile-room-a,
+.mobile-room-c {
+	border-top: 1px solid #ccc;
+}
+.mobile-talk {
+	
+}
+.canceled {	
+	background-color: #ccc;
+}
+.canceled-descr {
+	text-decoration: line-through;
+	color: #555;
+}
+.canceled-notice {
+	text-decoration: none;
+}
+.empty {
+	background-color: #eee;
+}
+@media screen and (min-width: 769px) {
+	.mobile-only {
+		display: none;
+	}
+}
+@media screen and (max-width: 768px) {
+	.desktop-only {
+		display: none;
+	}
+	.main {
+		padding: 1em 0.5em;
+	}
+}
 </style>
+
 {{> footer}}

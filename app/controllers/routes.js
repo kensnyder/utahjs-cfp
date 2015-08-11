@@ -7,7 +7,7 @@ var Log = models.Log;
 
 // common stuff
 var baseTitle = 'UtahJS Conference - Friday September 25, 2015';
-var paperDeadline = 'July 6th, 2015';
+var paperDeadline = 'August 13th, 2015';
 
 var audiences = [
 	'Beginner Developers',
@@ -93,7 +93,7 @@ function setup(app) {
 			});
 			papers.forEach(function(paper) {
 				paper.votes = paper.votes.filter(function(vote) {
-					return vote.ip != '97.75.189.62';
+					return ['37.57.154.74','178.219.88.10','212.115.228.96','97.75.189.62'].indexOf(vote.ip) == -1;
 				});
 				paper.score = paper.votes.reduce(function(sum, vote) {
 					return sum + vote.score;
@@ -135,7 +135,7 @@ function setup(app) {
 			});
 			papers.forEach(function(paper) {
 				paper.votes = paper.votes.filter(function(vote) {
-					return vote.ip != '97.75.189.62';
+					return ['37.57.154.74','178.219.88.10','212.115.228.96','97.75.189.62'].indexOf(vote.ip) == -1;
 				});
 				paper.score = paper.votes.reduce(function(sum, vote) {
 					return sum + vote.score;
@@ -184,26 +184,26 @@ function setup(app) {
 		});
 	});
 	// schedule
-//	app.get('/schedule', function(request, response) {
-//		Paper.findAll(function(err, papers) {
-//			var schedule = generateSchedule(papers);
-//			response.render('proposed-schedule', {
-//				title: 'Schedule :: ' + baseTitle,
-//				schedule: schedule.schedule,
-//				papers: schedule.papers
-//			});
-//		});
-//	});	
+	app.get('/schedule', function(request, response) {
+		Paper.findAll(function(err, papers) {
+			var schedule = generateSchedule(papers);
+			response.render('schedule', {
+				title: 'Schedule :: ' + baseTitle,
+				schedule: schedule.schedule,
+				papers: schedule.papers
+			});
+		});
+	});	
 	// design our shirts!
 	app.get('/shirts', function(request, response) {
 		// static page
 		response.render('shirts');
 	});	
 	// schedule coming soon page
-	app.get('/schedule', function(request, response) {
-		// static page
-		response.render('schedule-soon');
-	});	
+//	app.get('/schedule-soon', function(request, response) {
+//		// static page
+//		response.render('schedule-soon');
+//	});	
 	// official schedule
 	app.get('/schedule-2014', function(request, response) {
 		// static page
@@ -254,7 +254,7 @@ function getIpAddress(req) {
 
 function generateSchedule(papers) {
 	papers.forEach(function(paper) {
-		paper.slot = parseFloat((paper.admin_comment || '').replace(/\D/g, '')) || 9;
+		paper.slot = parseFloat((paper.admin_comment || '').replace(/^.+SLOT (\d+).*$/i, '$1')) || 9;
 	});
 	papers = papers.sort(function(a, b) {		
 		return a.slot - b.slot;
@@ -262,10 +262,10 @@ function generateSchedule(papers) {
 	var small = [], medium = [], large = [];
 	papers.forEach(function(paper) {
 		if (!paper.admin_favorite) { return; }
-		if ((/cancel?led/i).test(paper.admin_comment)) { paper.canceled = true; }
-		if ((/aud/i   ).test(paper.admin_comment)) { large.push(paper); }
-		if ((/medium/i).test(paper.admin_comment)) { medium.push(paper); }
-		if ((/small/i ).test(paper.admin_comment)) { small.push(paper); }
+		if ((/cancel?led/i ).test(paper.admin_comment)) { paper.canceled = true; }
+		if ((/large/i      ).test(paper.admin_comment)) { large.push(paper); }
+		if ((/medium/i     ).test(paper.admin_comment)) { medium.push(paper); }
+		if ((/small/i      ).test(paper.admin_comment)) { small.push(paper); }
 	});
 	var schedule = [
 		{
@@ -279,92 +279,86 @@ function generateSchedule(papers) {
 			text: 'Welcome'
 		},
 		{
-			time: '9:15am - 9:55am',
-			minutes: 45,
+			time: '9:10am - 9:50am',
+			minutes: 40,
+			is_keynote: true,
+			large: large[0]
+		},
+		{
+			time: '9:50am - 10:25am',
+			minutes: 40,
+			is_keynote: true,
+			large: large[1]
+		},
+		{
+			time: '10:30am - 11:05am',
+			minutes: 40,
 			is_talk: true,
-			large: large[0],
+			large: large[2],
 			medium: medium[0],
 			small: small[0]
 		},
 		{
-			time: '9:55am - 10:15am',
-			minutes: 15,
-			text: 'Break'
-		},
-		{
-			time: '10:15am - 10:55am',
-			minutes: 45,
+			time: '11:10am - 11:45am',
+			minutes: 40,
 			is_talk: true,
-			large: large[1],
+			large: large[3],
 			medium: medium[1],
 			small: small[1]
 		},
 		{
-			time: '11:00am - 11:40am',
-			minutes: 45,
-			is_talk: true,
-			large: large[2],
-			medium: medium[2],
-			small: small[2]
-		},
-		{
-			time: '11:40am - 1:15pm',
+			time: '11:45am - 1:15pm',
 			minutes: 90,
 			text: 'Lunch'
 		},
 		{
-			time: '1:15pm - 1:55pm',
-			minutes: 45,
-			is_talk: true,
-			large: large[3],
-			medium: medium[3],
-			small: small[3]
-		},		
-		{
-			time: '2:00pm - 2:40pm',
-			minutes: 45,
+			time: '1:15pm - 1:50pm',
+			minutes: 40,
 			is_talk: true,
 			large: large[4],
-			medium: medium[4],
-			small: small[4]
-		},
+			medium: medium[2],
+			small: small[2]
+		},		
 		{
-			time: '2:40pm - 3:00pm',
-			minutes: 15,
-			text: 'Break'
-		},
-		{
-			time: '3:00pm - 3:40pm',
-			minutes: 45,
+			time: '1:55pm - 2:30pm',
+			minutes: 40,
 			is_talk: true,
 			large: large[5],
+			medium: medium[3],
+			small: small[3]
+		},
+		{
+			time: '2:35pm - 3:10pm',
+			minutes: 40,
+			is_talk: true,
+			large: large[6],
+			medium: medium[4],
+			small: small[4]
+		},		
+		{
+			time: '3:15pm - 3:50pm',
+			minutes: 40,
+			is_talk: true,
+			large: large[7],
 			medium: medium[5],
 			small: small[5]
 		},		
 		{
-			time: '3:45pm - 4:25pm',
-			minutes: 45,
+			time: '3:55pm - 4:30pm',
+			minutes: 40,
 			is_talk: true,
-			large: large[6],
+			large: large[8],
 			medium: medium[6],
 			small: small[6]
 		},
 		{
-			time: '4:30pm - 5:10pm',
-			minutes: 45,
-			is_talk: true,
-			large: large[7],
-			medium: medium[7],
-			small: small[7]
-		},	
-		{
-			time: '5:15pm - 5:30pm',
+			time: '4:35pm - 4:45pm',
 			minutes: 15,
 			text: 'Giveaway'
 		},	
 		{
-			time: '5:30pm - 6:30pm',
-			minutes: 60,
+			time: '4:45pm - 6:30pm',
+			minutes: 105,
 			text: 'Break'
 		},	
 		{
