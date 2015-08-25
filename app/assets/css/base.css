@@ -411,6 +411,26 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 	letter-spacing: 2px;
 	margin-bottom: 15px;
 }
+.beginner {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	line-height: 24px;
+	color: #fff;
+	background-color: #16CB16;
+	text-align: center;
+	border-radius: 12px;
+	font-size: 18px;
+}
+#sched .beginner {
+	float: right;
+	display: block;
+}
+.legend {
+	float: left;
+	clear: left;
+	margin: 1em 0;
+}
 @media screen and (min-width: 769px) {
 	.mobile-only {
 		display: none;

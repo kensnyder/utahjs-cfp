@@ -5,6 +5,8 @@
 	
 	<h1 class="pull-left">Schedule: 2015 UtahJS Conference</h1>
 	
+	<div class="legend"><span class="beginner">B</span> = Targeted toward beginners</div>
+	
 	{{> sponsors}}
 	
 	<div id=sched>
@@ -12,8 +14,8 @@
 			<tr>
 				<th class=time>Time
 				<th class=room>Auditorium
-				<th class=room>Room C
 				<th class=room>Room A
+				<th class=room>Room C
 			</tr>
 			{{#each schedule}}
 				<tr>
@@ -30,6 +32,7 @@
 							</td>
 						{{else}}
 							<td class=talk>
+								{{#if large.isBeginner}}<span class="beginner">B</span>{{/if}}
 								<a href="#" data-id="id{{large._id}}" class="expand" title="Click to view details">{{large.title}}</a>
 								<br>
 								<em>By {{large.name}}</em>
@@ -46,6 +49,7 @@
 							</td>
 						{{else}}
 							<td class=talk>
+								{{#if medium.isBeginner}}<span class="beginner">B</span>{{/if}}
 								<a href="#" data-id="id{{medium._id}}" class="expand" title="Click to view details">{{medium.title}}</a>
 								<br>
 								<em>By {{medium.name}}</em>
@@ -62,6 +66,7 @@
 							</td>
 						{{else}}
 							<td class=talk>
+								{{#if small.isBeginner}}<span class="beginner">B</span>{{/if}}
 								<a href="#" data-id="id{{small._id}}" class="expand" title="Click to view details">{{small.title}}</a>
 								<br>
 								<em>By {{small.name}}</em>
@@ -69,6 +74,7 @@
 						{{/if}}
 					{{else}}{{#if is_keynote}}
 						<td class="keynote">
+							{{#if large.isBeginner}}<span class="beginner">B</span>{{/if}}
 							<strong>Keynote:</strong>
 							<a href="#" data-id="id{{large._id}}" class="expand" title="Click to view details">{{large.title}}</a>
 							<br>
@@ -98,12 +104,13 @@
 							</div>
 						{{else}}
 							<div class=mobile-talk>
+								{{#if large.isBeginner}}<span class="beginner">B</span>{{/if}}
 								<a href="#" data-id="id{{large._id}}" class="expand" title="Click to view details">{{large.title}}</a>
 								<em>By {{large.name}}</em>
 							</div>
 						{{/if}}
 						
-						<div class="mobile-room mobile-room-c">Room C</div>
+						<div class="mobile-room mobile-room-c">Room A</div>
 						{{#if medium.canceled}}
 							<div class="mobile-talk canceled">
 								<span class="canceled-notice">Canceled</span>
@@ -114,12 +121,13 @@
 							</div>
 						{{else}}
 							<div class=mobile-talk>
+								{{#if medium.isBeginner}}<span class="beginner">B</span>{{/if}}
 								<a href="#" data-id="id{{medium._id}}" class="expand" title="Click to view details">{{medium.title}}</a>
 								<em>By {{medium.name}}</em>
 							</div>
 						{{/if}}
 						
-						<div class="mobile-room mobile-room-a">Room A</div>
+						<div class="mobile-room mobile-room-a">Room C</div>
 						{{#if small.canceled}}
 							<div class="mobile-talk canceled">
 								<span class="canceled-notice">Canceled</span>
@@ -130,12 +138,14 @@
 							</div>
 						{{else}}
 							<div class=mobile-talk>
+								{{#if small.isBeginner}}<span class="beginner">B</span>{{/if}}
 								<a href="#" data-id="id{{small._id}}" class="expand" title="Click to view details">{{small.title}}</a>
 								<em>By {{small.name}}</em>
 							</div>
 						{{/if}}
 					{{else}}{{#if is_keynote}}
 						<div class="mobile-talk keynote">
+							{{#if large.isBeginner}}<span class="beginner">B</span>{{/if}}
 							<strong>Keynote:</strong>
 							<a href="#" data-id="id{{large._id}}" class="expand" title="Click to view details">{{large.title}}</a>
 							<br>
