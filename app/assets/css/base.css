@@ -283,6 +283,147 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 	text-align: left;
 	padding: 1.5em 0.75em;
 }
+.pull-left {
+	float: left;
+}
+/* schedule */
+#sched {
+	width: auto;
+	clear: both;
+}
+#sched td {
+	padding: 0 0.5em;
+	border: 1px solid #ccc;
+}
+#sched th {
+	padding: 0.5em;
+	border: 1px solid #ccc;
+	text-align: center;
+}
+.room {
+	width: 30%;
+}
+.expand {
+	text-decoration: underline !important;
+}
+.expanded {
+	border: 4px solid #DDDDDD;
+	padding: 30px;
+}
+.expanded .back {
+	width: 100px;
+}
+.time {
+	text-wrap: avoid;
+	white-space: nowrap;
+}
+.t15min {
+	height: 2em;
+}
+.t30min,
+.t35min {
+	height: 4em;
+}
+.t40min,
+.t45min {
+	height: 6em;
+}
+.t60min {
+	height: 8em;
+}
+.t90min {
+	height: 12em;
+}
+.t105min {
+	height: 14em;
+}
+.t120min {
+	height: 16em;
+}
+.table .break {
+	text-align: center;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+.keynote {
+	background-color: #E3FFD5;
+}
+.talk {
+	background-color: #D9EEFF;
+}
+.mobile-slot {
+	border: 1px solid #0071CD;
+	margin: 20px 0;
+}
+.mobile-time,
+.mobile-break,
+.mobile-talk {
+	padding: 5px 10px;
+}
+.mobile-time {
+	background-color: #0071CD;
+	text-align: center;
+	color: #fff;
+}
+.mobile-break {
+}
+.mobile-room {
+	padding: 10px 10px 0 10px; 
+	text-transform: uppercase;
+	color: #999;
+	font-size: 14px;
+	text-align: center;
+}
+.mobile-room-a,
+.mobile-room-c {
+	border-top: 1px solid #ccc;
+}
+.mobile-talk {
+	
+}
+.canceled {	
+	background-color: #ccc;
+}
+.canceled-descr {
+	text-decoration: line-through;
+	color: #555;
+}
+.canceled-notice {
+	text-decoration: none;
+}
+.empty {
+	background-color: #eee;
+}
+.sps {
+    width: 290px;
+    padding: 20px;
+    border: 1px solid #E7181C;
+    margin-bottom: 30px;
+}
+.main-schedule .sps {
+    float: right;
+}
+.sps-headline {
+	text-transform: uppercase;
+	font-size: 13px;
+	color: #E7181C;
+	letter-spacing: 2px;
+	margin-bottom: 15px;
+}
+@media screen and (min-width: 769px) {
+	.mobile-only {
+		display: none;
+	}
+}
+@media screen and (max-width: 768px) {
+	.desktop-only {
+		display: none;
+	}
+	.main {
+		padding: 1em 0.5em;
+	}
+}
 @media only screen and (max-width: 479px) {
 	h1 {
 		font-size: 1.4em;
@@ -317,5 +458,8 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 	}
 	.what {
 		font-size: 1.6em;
+	}
+	.sps {
+		width: 100%;
 	}
 }

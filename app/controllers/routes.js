@@ -274,24 +274,24 @@ function generateSchedule(papers) {
 			text: 'Registration'
 		},
 		{
-			time: '9:00am - 9:10am',
+			time: '9:00am - 9:20am',
 			minutes: 15,
 			text: 'Welcome'
 		},
 		{
-			time: '9:10am - 9:50am',
+			time: '9:20am - 9:55am',
 			minutes: 40,
 			is_keynote: true,
 			large: large[0]
 		},
 		{
-			time: '9:50am - 10:25am',
+			time: '10:00am - 10:35am',
 			minutes: 40,
 			is_keynote: true,
 			large: large[1]
 		},
 		{
-			time: '10:30am - 11:05am',
+			time: '10:40am - 11:15am',
 			minutes: 40,
 			is_talk: true,
 			large: large[2],
@@ -299,7 +299,7 @@ function generateSchedule(papers) {
 			small: small[0]
 		},
 		{
-			time: '11:10am - 11:45am',
+			time: '11:20am - 11:55am',
 			minutes: 40,
 			is_talk: true,
 			large: large[3],
@@ -307,12 +307,12 @@ function generateSchedule(papers) {
 			small: small[1]
 		},
 		{
-			time: '11:45am - 1:15pm',
+			time: '11:55am - 1:25pm',
 			minutes: 90,
 			text: 'Lunch'
 		},
 		{
-			time: '1:15pm - 1:50pm',
+			time: '1:25pm - 2:00pm',
 			minutes: 40,
 			is_talk: true,
 			large: large[4],
@@ -320,7 +320,7 @@ function generateSchedule(papers) {
 			small: small[2]
 		},		
 		{
-			time: '1:55pm - 2:30pm',
+			time: '2:05pm - 2:40pm',
 			minutes: 40,
 			is_talk: true,
 			large: large[5],
@@ -328,7 +328,7 @@ function generateSchedule(papers) {
 			small: small[3]
 		},
 		{
-			time: '2:35pm - 3:10pm',
+			time: '2:45pm - 3:20pm',
 			minutes: 40,
 			is_talk: true,
 			large: large[6],
@@ -336,7 +336,7 @@ function generateSchedule(papers) {
 			small: small[4]
 		},		
 		{
-			time: '3:15pm - 3:50pm',
+			time: '3:25pm - 4:00pm',
 			minutes: 40,
 			is_talk: true,
 			large: large[7],
@@ -344,7 +344,7 @@ function generateSchedule(papers) {
 			small: small[5]
 		},		
 		{
-			time: '3:55pm - 4:30pm',
+			time: '4:05pm - 4:40pm',
 			minutes: 40,
 			is_talk: true,
 			large: large[8],
@@ -352,12 +352,12 @@ function generateSchedule(papers) {
 			small: small[6]
 		},
 		{
-			time: '4:35pm - 4:45pm',
+			time: '4:45pm - 5:00pm',
 			minutes: 15,
 			text: 'Giveaway'
 		},	
 		{
-			time: '4:45pm - 6:30pm',
+			time: '5:00pm - 6:30pm',
 			minutes: 105,
 			text: 'Break'
 		},	
