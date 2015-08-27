@@ -411,6 +411,10 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 	letter-spacing: 2px;
 	margin-bottom: 15px;
 }
+.sps-logo {
+	display: block;
+	margin-top: 15px;
+}
 .beginner {
 	display: inline-block;
 	width: 24px;
