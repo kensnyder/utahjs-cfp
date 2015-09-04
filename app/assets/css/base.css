@@ -404,6 +404,8 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 }
 .main-schedule .sps {
     float: right;
+	margin-top: -151px;
+    background-color: white;
 }
 .sps-headline {
 	text-transform: uppercase;
