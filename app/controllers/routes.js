@@ -194,6 +194,21 @@ function setup(app) {
 			});
 		});
 	});	
+	app.get('/schedule.json', function(request, response) {
+		Paper.findAll(function(err, papers) {
+			var schedule = generateSchedule(papers).schedule;
+			schedule.forEach(function(slot) {
+				['large','medium','small'].forEach(function(size) {
+					if (slot[size]) {
+						delete slot[size].votes;
+						delete slot[size].admin_favorite;
+						delete slot[size].admin_comment;
+					}
+				});
+			});
+			response.json(schedule);
+		});
+	});	
 	// design our shirts!
 	app.get('/shirts', function(request, response) {
 		// static page
