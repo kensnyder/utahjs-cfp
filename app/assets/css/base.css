@@ -401,6 +401,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
     padding: 20px;
     border: 1px solid #E7181C;
     margin-bottom: 30px;
+	text-align: center;
 }
 .main-schedule .sps {
     float: right;
@@ -450,6 +451,11 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 	.main {
 		padding: 1em 0.5em;
 	}
+	.main-schedule .sps {
+		float: none;
+		clear: both;
+		margin-top: 0;
+	}	
 }
 @media only screen and (max-width: 479px) {
 	h1 {
