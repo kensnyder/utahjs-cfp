@@ -3,15 +3,18 @@
 var express = require('express');
 var app = express();
 var hbs = require('hbs');
+var bodyParser = require('body-parser');
+var serveStatic = require('serve-static');
+var favicon = require('serve-favicon');
 // decode post values
-app.use(express.bodyParser());
+app.use(bodyParser());
 // use handlebars as templating engine
 app.set('view engine', 'html');
 app.set('views', __dirname + '/app/views');
 app.engine('html', hbs.__express);
 // serve static files and favicon
-app.use('/assets', express.static(__dirname + '/app/assets'));
-app.use(express.favicon(__dirname + '/app/assets/img/favicon.ico'));
+app.use('/assets', serveStatic(__dirname + '/app/assets'));
+app.use(favicon(__dirname + '/app/assets/img/favicon.ico'));
 // setup partials in hbs
 hbs.registerPartials(__dirname + '/app/views/partials');
 

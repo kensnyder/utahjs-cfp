@@ -3,7 +3,7 @@
 var dsn = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || require('../config').mongoUri;
 var collections = ["papers2015", "hits2015", "logs2015"];
 var mongojs = require('mongojs');
-var db = mongojs.connect(dsn, collections);
+var db = mongojs(dsn, collections, {authMechanism: 'ScramSHA1'});
 var ObjectId = mongojs.ObjectId;
 
 function Paper(data) {
